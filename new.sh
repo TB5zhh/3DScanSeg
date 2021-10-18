@@ -1,0 +1,21 @@
+python -u new.py \
+    --log_dir log \
+    --seed 42 \
+    --train_dataset ScannetVoxelization2cmDataset \
+    --val_dataset ScannetVoxelization2cmtestDataset \
+    --scannet_path /mnt/air-02/luoly/min_eff/eff_200/train \
+    --scannet_test_path /mnt/air-02/luoly/Minkowski/scan_processed/scan_processed/train \
+    --model Res16UNet34CUNC \
+    --weights /mnt/air-02/luoly/tbw/log/checkpoint_NoneRes16UNet34C_20000.pth \
+    --checkpoint_dir checkpoints \
+    --num_workers 4 \
+    --validate_step 100 \
+    --optim_step 1 \
+    --train_batch_size 12     \
+    --val_batch_size 12  \
+    --lr 0.1 \
+    --save_epoch 1 \
+    --run_name finetune \
+    --scheduler PolyLR \
+    --wandb True
+    

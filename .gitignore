@@ -1,0 +1,28 @@
+# Byte-compiled / optimized
+__pycache__/
+*.py[cod]
+*.o
+*.so
+
+# Text edits
+*.swp
+*.swo
+*.orig
+
+# Training
+outputs/
+
+# Profiling
+callgrind.out*
+*.dSYM
+
+# Misc
+.DS_Store
+
+log/
+tmp_dir*
+results/
+.vscode/
+wandb/
+checkpoints/
+.git_bak/
