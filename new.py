@@ -138,40 +138,10 @@ def main_worker(rank=0, world_size=1, init_method=None):
         for key, value in vars(config).items():
             logger.info(f"---> {key:>30}: {value}")  # pylint: disable=W1203
 
-    # Set up test dataloader
-    train_dataset_cls = load_dataset(config.train_dataset)
-    val_dataset_cls = load_dataset(config.val_dataset)
-
-    # hint: use phase to select different split of data
-    train_dataloader = initialize_data_loader(
-        train_dataset_cls,
-        config,
-        num_workers=config.num_workers,
-        phase='train',
-        augment_data=True,
-        shuffle=True,
-        repeat=True,
-        batch_size=config.train_batch_size,
-        limit_numpoints=False,
-    )
-
-    val_dataloader = initialize_data_loader(
-        val_dataset_cls,
-        config,
-        num_workers=config.num_workers,
-        phase='val',
-        augment_data=False,
-        shuffle=False,
-        repeat=False,
-        batch_size=config.val_batch_size,
-        limit_numpoints=False,
-    )
-    if rank == 0:
-        logger.info("Dataloader setup done")
-
     # Setup model
     num_in_channel = 3  # RGB
-    num_labels = val_dataloader.dataset.NUM_LABELS
+    # num_labels = val_dataloader.dataset.NUM_LABELS
+    num_labels = 20
     model_class = load_model(config.model)
     model = model_class(num_in_channel, num_labels, config)
 
@@ -201,25 +171,86 @@ def main_worker(rank=0, world_size=1, init_method=None):
             # bucket_cap_mb=
         )
     if config.wandb and rank == 0:
-        wandb.login('6653cea7375b6dd706fe1386010d63e776edc4d4')
+        #wandb.login('6653cea7375b6dd706fe1386010d63e776edc4d4')
         wandb.init(project='3dsp', entity='tb5zhh')
         wandb.config.update(config)
         # wandb.watch(model)
 
-    train(model, train_dataloader, val_dataloader, config, logger, rank=rank, world_size=world_size)
+    # Action switch
+    if config.do_train:
+        # Set up test dataloader
+        train_dataset_cls = load_dataset(config.train_dataset)
+        val_dataset_cls = load_dataset(config.val_dataset)
 
-    dist.destroy_process_group()
-    # TODO add unc inference
+        # hint: use phase to select different split of data
+        train_dataloader = initialize_data_loader(
+            train_dataset_cls,
+            config,
+            num_workers=config.num_workers,
+            phase='train',
+            augment_data=True,
+            shuffle=True,
+            repeat=True,
+            batch_size=config.train_batch_size,
+            limit_numpoints=False,
+        )
+
+        val_dataloader = initialize_data_loader(
+            val_dataset_cls,
+            config,
+            num_workers=config.num_workers,
+            phase='val',
+            augment_data=False,
+            shuffle=False,
+            repeat=False,
+            batch_size=config.val_batch_size,
+            limit_numpoints=False,
+        )
+        if rank == 0:
+            logger.info("Dataloader setup done")
+        train(model, train_dataloader, val_dataloader, config, logger, rank=rank, world_size=world_size)
+    elif config.do_unc_demo:
+        val_dataset_cls = load_dataset(config.unc_dataset)
+        unc_dataloader = initialize_data_loader(
+            val_dataset_cls,
+            config,
+            num_workers=config.num_workers,
+            phase='train',
+            augment_data=False,
+            shuffle=False,
+            repeat=False,
+            batch_size=config.test_batch_size,
+            limit_numpoints=False,
+        )
+        unc_demo(model, unc_dataloader, config, logger)
+        # unc_inference(model, unc_dataloader, config, logger)
+    elif config.do_unc_inference:
+        val_dataset_cls = load_dataset(config.unc_dataset)
+        unc_dataloader = initialize_data_loader(
+            val_dataset_cls,
+            config,
+            num_workers=config.num_workers,
+            phase='train',
+            augment_data=False,
+            shuffle=False,
+            repeat=False,
+            batch_size=config.test_batch_size,
+            limit_numpoints=False,
+        )
+        unc_inference(model, unc_dataloader, config, logger)
 
 
-def unc_demo(model, dataloader, config, logger):
+    if world_size > 1:
+        dist.destroy_process_group()
+
+
+def unc_demo(model, dataloader, config, logger, rank=0, world_size=1):
     """
     Run multiple inference and obtain uncertainty for each point
     Then save the uncertainty result
     """
 
-    # todo DEPRECATED device_id
-    device = f"cuda:{config.device_id}"
+    device = rank
 
     # Set model to eval mode except for the last dropout layer
     model.eval()
@@ -227,7 +258,9 @@ def unc_demo(model, dataloader, config, logger):
         if m.__class__.__name__.startswith('Dropout'):
             logger.warn(f"module {m.__class__.__name__} set to train")
             m.train()
-
+    # TODO add this to config
+    with open('splits/scannet/scannetv2_val.txt') as f:
+        names = sorted([i.strip() for i in f.readlines()])
     with torch.no_grad():
 
         global_cnt = 0
@@ -256,20 +289,19 @@ def unc_demo(model, dataloader, config, logger):
                 selector = batched_coords[:, 0] == i
                 single_scene_coords = batched_coords[selector][:, 1:]
                 single_scene_scores = batched_scores[selector]
-                save_prediction(single_scene_coords, single_scene_scores, f"{config.unc_result_dir}/{global_cnt}.ply", mode='unc')
+                save_prediction(single_scene_coords, single_scene_scores, f"{config.unc_result_dir}/{names[global_cnt].split('.')[0]}_prediction.ply", mode='unc')
                 global_cnt += 1
             #     single_scene_scores = batched_scores
 
 
-def unc_inference(model, dataloader, config, logger):
+def unc_inference(model, dataloader, config, logger, rank=0, world_size=1):
     """
     Run multiple inference and obtain uncertainty results for each point
     And:
     - save the statistics of the uncertainty
     - save scenes with augmented labels
     """
-    # TODO DEPRECATED device_id
-    device = f"cuda:{config.device_id}"
+    device = rank
 
     # Set model to eval mode except for the last dropout layer
     model.eval()
@@ -277,6 +309,10 @@ def unc_inference(model, dataloader, config, logger):
         if m.__class__.__name__.startswith('Dropout'):
             logger.warn(f"module {m.__class__.__name__} set to train")
             m.train()
+
+    # TODO move this to config
+    with open('splits/scannet/scannetv2_train.txt') as f:
+        names = sorted([i.strip() for i in f.readlines()])
 
     with torch.no_grad():
 
@@ -305,19 +341,23 @@ def unc_inference(model, dataloader, config, logger):
             batched_scores = multiround_batched_scores.var(dim=0)
             all_scores.append(batched_scores)
 
+            batched_labels = F.softmax(multiround_batched_scores.sum(dim=0), dim=1).argmax(dim=1)
+
             for i in range(config.test_batch_size):
                 logger.info(f"---> processing #{i} scene in the batch")
                 selector = batched_coords[:, 0] == i
                 single_scene_coords = batched_coords[selector][:, 1:]
+                single_scene_labels = batched_labels[selector]
                 single_scene_scores = batched_scores[selector]
                 # FIXME change this to prediction mode
-                save_prediction(single_scene_coords, single_scene_scores, f"{config.unc_result_dir}/{global_cnt}.ply", mode='unc')
+                save_prediction(single_scene_coords, single_scene_labels, f"{config.unc_result_dir}/{names[global_cnt].split('.')[0]}_prediction.ply", mode='prediction')
+                torch.save(single_scene_scores.cpu(), f"{config.unc_result_dir}/{names[global_cnt].split('.')[0]}_unc.obj")
                 global_cnt += 1
             #     single_scene_scores = batched_scores
 
         # Save uncertainty of all points
-        all_scores = torch.vstack(all_scores)
-        torch.save(all_scores, config.unc_stat_path)
+        # all_scores = torch.vstack(all_scores)
+        # torch.save(all_scores, config.unc_stat_path)
 
 
 def save_prediction(coords, feats, path, mode='unc'):
@@ -338,7 +378,7 @@ def save_prediction(coords, feats, path, mode='unc'):
     elif mode == 'prediction':
 
         def rgbl_fn(feat):
-            return (*COLOR_MAP[feat], feat)
+            return (*[int(i) for i in COLOR_MAP[feat.item()]], feat)
     else:
         raise NotImplementedError
 
