@@ -479,6 +479,7 @@ def initialize_data_loader(DatasetClass,
       'num_workers': num_workers,
       'batch_size': batch_size,
       'collate_fn': collate_fn,
+      'pin_memory': True,
   }
 
   if repeat:

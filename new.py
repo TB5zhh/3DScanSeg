@@ -4,7 +4,7 @@ import time
 import random
 
 import numpy as np
-from numpy.core.fromnumeric import diagonal
+from numpy.core.fromnumeric import argmax, diagonal
 import torch
 from torch import nn
 import torch.nn.functional as F
@@ -15,7 +15,7 @@ from lib.utils import save_predictions
 
 from lib.dataset import initialize_data_loader
 from lib.datasets import load_dataset
-from lib.datasets.scannet import COLOR_MAP
+from lib.datasets.scannet import COLOR_MAP, CLASS_LABELS
 from lib.distributed_utils import all_gather_list
 from models import load_model
 from config import get_config
@@ -34,7 +34,7 @@ def checkpoint(model, optimizer, scheduler, config, prefix='', **kwarg):
     os.makedirs(config.checkpoint_dir, exist_ok=True)
     filename = f"{config.checkpoint_dir}/{config.run_name}{('_' +  prefix) if len(prefix) > 0 else ''}.pth"
     states = {
-        'state_dict': model.module.state_dict(), # * load a GPU checkpoint to CPU
+        'state_dict': model.module.state_dict(),  # * load a GPU checkpoint to CPU
         'optimizer': optimizer.state_dict(),
         'scheduler': scheduler.state_dict(),
         'config': vars(config),
@@ -153,7 +153,7 @@ def main_worker(rank=0, world_size=1, init_method=None):
             logger.info(f"Checkpoint resumed from {config.resume}")  # pylint: disable=W1203
     elif config.weights:
         state = torch.load(config.weights, map_location=f'cuda:{device}')
-        model.load_state_dict({k: v for k, v in state['state_dict'].items() if not k.startswith('projector.')}) 
+        model.load_state_dict({k: v for k, v in state['state_dict'].items() if not k.startswith('projector.')})
         if rank == 0:
             logger.info(f"Weights loaded from {config.weights}")  # pylint: disable=W1203
 
@@ -238,8 +238,34 @@ def main_worker(rank=0, world_size=1, init_method=None):
             limit_numpoints=False,
         )
         unc_inference(model, unc_dataloader, config, logger)
-
-
+    elif config.do_verbose_inference:
+        val_dataset_cls = load_dataset(config.unc_dataset)
+        unc_dataloader = initialize_data_loader(
+            val_dataset_cls,
+            config,
+            num_workers=config.num_workers,
+            phase='train',
+            augment_data=False,
+            shuffle=False,
+            repeat=False,
+            batch_size=config.test_batch_size,
+            limit_numpoints=False,
+        )
+        verbose_inference(model, unc_dataloader, config, logger)
+    elif config.do_unc_render:
+        val_dataset_cls = load_dataset(config.unc_dataset)
+        unc_dataloader = initialize_data_loader(
+            val_dataset_cls,
+            config,
+            num_workers=config.num_workers,
+            phase='train',
+            augment_data=False,
+            shuffle=False,
+            repeat=False,
+            batch_size=config.test_batch_size,
+            limit_numpoints=False,
+        )
+        unc_render(unc_dataloader, config, logger)
     if world_size > 1:
         dist.destroy_process_group()
 
@@ -249,7 +275,7 @@ def unc_demo(model, dataloader, config, logger, rank=0, world_size=1):
     Run multiple inference and obtain uncertainty for each point
     Then save the uncertainty result
     """
-
+    from plyfile import PlyData
     device = rank
 
     # Set model to eval mode except for the last dropout layer
@@ -259,7 +285,7 @@ def unc_demo(model, dataloader, config, logger, rank=0, world_size=1):
             logger.warn(f"module {m.__class__.__name__} set to train")
             m.train()
     # TODO add this to config
-    with open('splits/scannet/scannetv2_val.txt') as f:
+    with open('splits/scannet/scannetv2_train.txt') as f:
         names = sorted([i.strip() for i in f.readlines()])
     with torch.no_grad():
 
@@ -289,18 +315,137 @@ def unc_demo(model, dataloader, config, logger, rank=0, world_size=1):
                 selector = batched_coords[:, 0] == i
                 single_scene_coords = batched_coords[selector][:, 1:]
                 single_scene_scores = batched_scores[selector]
-                save_prediction(single_scene_coords, single_scene_scores, f"{config.unc_result_dir}/{names[global_cnt].split('.')[0]}_prediction.ply", mode='unc')
+                save_prediction(single_scene_coords,
+                                single_scene_scores,
+                                f"{config.unc_result_dir}/{names[global_cnt].split('.')[0]}_prediction.ply",
+                                mode='unc')
                 global_cnt += 1
             #     single_scene_scores = batched_scores
 
 
+def verbose_inference(model, dataloader, config, logger, rank=0, world_size=1):
+    """
+    For each scene, perform inference 10 (fixed) times to get:
+    1. predicted value of 20 classes of this 10 times (illustrated with ply file)
+    2. miou of 10 times
+    3. unc table 
+    For debugging, do this on one scene first
+
+    required config: 
+    - unc_round
+    - test_batch_size
+    - unc_result_dir
+
+    WORKING !!!
+    """
+    device = rank
+
+    # Switch model to evaluation mode, except for the dropout layer
+    model.eval()
+    for m in model.modules():
+        if m.__class__.__name__.startswith('Dropout'):
+            logger.warn(f"module {m.__class__.__name__} set to train")
+            m.train()
+
+    # Obtain scene names
+    with open('splits/scannet/scannetv2_train.txt') as f:
+        names = sorted([i.strip() for i in f.readlines()])
+
+    with torch.no_grad():
+        # FIXME Check validity of unc calculation!
+        global_cnt = 0
+        all_scores = []
+
+        for step, batched_data in enumerate(dataloader):
+            logger.info(f"{step}/{len(dataloader)} done")
+
+            batched_coords, batched_feats, batched_target = batched_data
+
+            # Normalize color
+            batched_feats[:, :3] = batched_feats[:, :3] / 255. - 0.5
+
+            # Feed forward
+            batched_sparse_input = ME.SparseTensor(batched_feats.to(device), batched_coords.to(device))
+
+            multiround_batched_scores = []
+
+            for unc_round_id in range(config.unc_round):
+                logger.info(f"---> feed forward #{unc_round_id} round")
+                batched_sparse_output = model(batched_sparse_input)
+                batched_output = batched_sparse_output.F.cpu().clone().detach()
+                batched_labels = batched_output.argmax(dim=1)  # Select the class with highest score
+                batched_scores = F.softmax(batched_output, dim=1)  # Use soft max along class dimension to obtain scores
+
+                multiround_batched_scores.append(batched_scores)
+
+                # for scene_id in range(config.test_batch_size):
+                #     selector = batched_coords[:, 0] == scene_id
+                #     single_scene_coords = batched_coords[selector][:, 1:]
+                #     single_scene_labels = batched_labels[selector]
+                #     single_scene_scores = batched_scores[selector]
+                #     single_scene_target = batched_target[selector]
+
+                # For each class, save the prediction image
+                # save_prediction(single_scene_coords, single_scene_labels, f'{config.unc_result_dir}/test_scene{scene_id}_round#{unc_round_id}_prediction.ply', mode='prediction')
+                # save_prediction(single_scene_coords, single_scene_target, f'{config.unc_result_dir}/test_round#{unc_round_id}_truth.ply', mode='prediction')
+                # for class_id in range(20):
+                #     class_name = CLASS_LABELS[class_id]
+                #     input_feat = (single_scene_scores[:, class_id] - single_scene_scores[:, class_id].min()) / (single_scene_scores[:, class_id].max()-single_scene_scores[:, class_id].min())
+                #     def in_fn(id, row, feat):
+                #         return 127 + int(feat * 128), 255 - int(feat * 128), 127, 0
+                #     save_prediction(single_scene_coords, input_feat, f'{config.unc_result_dir}/test_scene{scene_id}_cls#{class_id}_round#{unc_round_id}_{class_name}.ply', mode='class', in_fn=in_fn)
+            tmp = torch.stack(multiround_batched_scores, dim=0)
+            multi_scores = tmp.var(dim=0)
+            multi_labels = tmp.sum(dim=0).argmax(dim=1)
+            # embed()
+
+            for scene_id in range(config.test_batch_size):
+                selector = batched_coords[:, 0] == scene_id
+                single_scene_coords = batched_coords[selector][:, 1:]
+                single_scene_scores = multi_scores[selector]
+                single_scene_labels = multi_labels[selector]
+
+                def in_fn(id, row, feat):
+                    return 127 + int(feat * 128), 255 - int(feat * 128), 127, 0
+
+                # feats = single_scene_scores.min(dim=1)[0]
+                feats = single_scene_scores.gather(dim=1, index=single_scene_labels.unflatten(0, (single_scene_labels.shape[0], 1)))
+
+                # feats /= feats.max()
+                coef = 4
+                feats = (1 - torch.exp(-coef * feats / feats.max()))
+                save_prediction(single_scene_coords, feats, f'{config.unc_result_dir}/test_scene{scene_id}_total_unc.ply', mode='else', in_fn=in_fn)
+                for class_id in range(20):
+                    class_name = CLASS_LABELS[class_id]
+                    single_scene_scores[:, class_id] /= single_scene_scores[:, class_id].max()
+                    save_prediction(single_scene_coords,
+                                    single_scene_scores[:, class_id],
+                                    f'{config.unc_result_dir}/test_scene{scene_id}_cls#{class_id}_{class_name}_unc.ply',
+                                    mode='else',
+                                    in_fn=in_fn)
+
+            return
+
+
 def unc_inference(model, dataloader, config, logger, rank=0, world_size=1):
     """
+    DONE
     Run multiple inference and obtain uncertainty results for each point
-    And:
-    - save the statistics of the uncertainty
-    - save scenes with augmented labels
+    And for each scene:
+    - save the statistics of the uncertainty in obj file (torch save)
+    - save the predicted labelds in obj file (torch save)
+
+    required config:
+    - unc_round
+    - unc_result_dir
+    - test_batch_size
+
+    call unc_render to obtain ply files
     """
+
+    # Inference should be done on one GPU
+    if world_size > 1 and rank > 0:
+        return
     device = rank
 
     # Set model to eval mode except for the last dropout layer
@@ -310,57 +455,86 @@ def unc_inference(model, dataloader, config, logger, rank=0, world_size=1):
             logger.warn(f"module {m.__class__.__name__} set to train")
             m.train()
 
-    # TODO move this to config
+    # Read scene names
+    # Scenes from training datasets
     with open('splits/scannet/scannetv2_train.txt') as f:
         names = sorted([i.strip() for i in f.readlines()])
 
     with torch.no_grad():
-
-        global_cnt = 0
-        all_scores = []
+        scene_cnt = 0
         for step, batched_data in enumerate(dataloader):
             logger.info(f"{step}/{len(dataloader)} done")
-            batched_coords, batched_feats, _ = batched_data
 
-            # Normalize color
+            # Load batched data
+            batched_coords, batched_feats, _ = batched_data
             batched_feats[:, :3] = batched_feats[:, :3] / 255. - 0.5
 
-            # Feed forward
-            batched_sparse_input = ME.SparseTensor(batched_feats.to(device), batched_coords.to(device))
-
             multiround_batched_scores = []
+
+            # Feed forward for multiple rounds
+            batched_sparse_input = ME.SparseTensor(batched_feats.to(device), batched_coords.to(device))
             for i in range(config.unc_round):
                 logger.info(f"---> feed forward #{i} round")
                 batched_sparse_output = model(batched_sparse_input)
+                batched_output = batched_sparse_output.F.cpu()
+                batched_scores = F.softmax(batched_output, dim=1)  # + IMPORTANT STEPS
+                multiround_batched_scores.append(batched_scores)
 
-                multiround_batched_scores.append(batched_sparse_output.F.cpu())
-
-            # Batchsize * Pointcount * Classcount
+            # batch_size * point_count * class_count
             multiround_batched_scores = torch.stack(multiround_batched_scores)
 
-            batched_scores = multiround_batched_scores.var(dim=0)
-            all_scores.append(batched_scores)
+            batched_labels = multiround_batched_scores.sum(dim=0).argmax(dim=1)  # Label
+            batched_scores = multiround_batched_scores.var(dim=0)  # Uncertainty
 
-            batched_labels = F.softmax(multiround_batched_scores.sum(dim=0), dim=1).argmax(dim=1)
-
-            for i in range(config.test_batch_size):
-                logger.info(f"---> processing #{i} scene in the batch")
-                selector = batched_coords[:, 0] == i
-                single_scene_coords = batched_coords[selector][:, 1:]
+            # Save labels and uncertainty for each scene
+            for scene_id in range(config.test_batch_size):
+                logger.info(f"---> processing #{scene_id} scene in the batch")
+                selector = batched_coords[:, 0] == scene_id
                 single_scene_labels = batched_labels[selector]
                 single_scene_scores = batched_scores[selector]
-                # FIXME change this to prediction mode
-                save_prediction(single_scene_coords, single_scene_labels, f"{config.unc_result_dir}/{names[global_cnt].split('.')[0]}_prediction.ply", mode='prediction')
-                torch.save(single_scene_scores.cpu(), f"{config.unc_result_dir}/{names[global_cnt].split('.')[0]}_unc.obj")
-                global_cnt += 1
-            #     single_scene_scores = batched_scores
 
-        # Save uncertainty of all points
-        # all_scores = torch.vstack(all_scores)
-        # torch.save(all_scores, config.unc_stat_path)
+                torch.save(single_scene_labels.cpu(), f"{config.unc_result_dir}/{names[scene_cnt].split('.')[0]}_predicted.obj")
+                torch.save(single_scene_scores.cpu(), f"{config.unc_result_dir}/{names[scene_cnt].split('.')[0]}_unc.obj")
+
+                scene_cnt += 1
 
 
-def save_prediction(coords, feats, path, mode='unc'):
+def render(path, coords, rgbs, labels):
+    """
+    Create a plyfile according to three the numpy arrays:
+    coords: (N * 3) array of coordinates
+    rgbs:   (N * 3) array of rgb values
+    labels: (N) array of labels
+    """
+    from plyfile import PlyData, PlyElement
+    assert len(coords) == len(rgbs)
+    assert len(rgbs) == len(labels)
+    point_num = len(coords)
+    dtype = np.dtype([
+        ('x', '<f4'),
+        ('y', '<f4'),
+        ('z', '<f4'),
+        ('red', 'u1'),
+        ('green', 'u1'),
+        ('blue', 'u1'),
+        ('label', 'u1'),
+    ])
+    vertex = np.ndarray((point_num,), dtype=dtype)
+
+    vertex['x'] = coords[:, 0]
+    vertex['y'] = coords[:, 1]
+    vertex['z'] = coords[:, 2]
+    vertex['red'] = rgbs[:, 0]
+    vertex['green'] = rgbs[:, 1]
+    vertex['blue'] = rgbs[:, 2]
+    vertex['label'] = labels
+
+    plyelement = PlyElement.describe(vertex, 'vertex')
+    plydata = PlyData([plyelement], text=False)
+    plydata.write(path)
+
+
+def save_prediction(coords, feats, path, mode='unc', in_fn=None):
     """
     save prediction for **ONE** scene
     mode:
@@ -368,20 +542,46 @@ def save_prediction(coords, feats, path, mode='unc'):
     - 'prediction': treat feats as the predicted label (batchsize * 1)s
     """
     if mode == 'unc':
-        feats = feats.min(dim=1)[0]
+        # feats = feats.min(dim=1)[0]
+        # feats = feats[:, 2]
+        feats = feats.mean(dim=1)
 
-        coef = 8  # exp smoothing
+        coef = 3  # exp smoothing
         feats = (1 - torch.exp(-coef * feats / feats.max())) * 128
 
-        def rgbl_fn(feat):
-            return 128 + int(feat), 255 - int(feat), 127, 0
+        # feats = feats/feats.max() * 128
+
+        def rgbl_fn(id, row, feat):
+            return 127 + int(feat), 255 - int(feat), 127, 0
+    elif mode == 'unc_select':
+        feats, labels = feats
+        feats = feats.gather(1, labels.unflatten(0, (labels.shape[0], 1)))
+        coef = 3  # exp smoothing
+        feats = (1 - torch.exp(-coef * feats / feats.max())) * 128
+
+        def rgbl_fn(id, row, feat):
+            return 127 + int(feat), 255 - int(feat), 127, 0
+    elif mode == 'unc_reinforce':
+        print('reinforce render')
+        feats, labels, truths = feats
+        feats = feats.gather(1, labels.unflatten(0, (labels.shape[0], 1)))
+        coef = 3  # exp smoothing
+        feats = (1 - torch.exp(-coef * feats / feats.max())) * 128
+
+        def rgbl_fn(id, row, feat):
+            if truths[id].item() == 255:
+                return 127 + int(feat), 255 - int(feat), 64, 0
+            else:
+                return 0, 0, 255, 0
+
     elif mode == 'prediction':
 
-        def rgbl_fn(feat):
+        def rgbl_fn(id, row, feat):
             return (*[int(i) for i in COLOR_MAP[feat.item()]], feat)
     else:
-        raise NotImplementedError
+        rgbl_fn = in_fn
 
+    print(f'Saved to {path}')
     with open(path, 'w') as f:  # pylint: disable=invalid-name
         f.write('ply\n'
                 'format ascii 1.0\n'
@@ -394,8 +594,12 @@ def save_prediction(coords, feats, path, mode='unc'):
                 'property uchar blue\n'
                 'property uchar label\n'
                 'end_header\n')
-        for row, feat in zip(coords, feats):
-            f.write(f'{row[0]} {row[1]} {row[2]} ' f'{rgbl_fn(feat)[0]} ' f'{rgbl_fn(feat)[1]} ' f'{rgbl_fn(feat)[2]} ' f'{rgbl_fn(feat)[3]}\n')
+        for id, (row, feat) in enumerate(zip(coords, feats)):
+            f.write(f'{row[0]} {row[1]} {row[2]} '
+                    f'{rgbl_fn(id, row, feat)[0]} '
+                    f'{rgbl_fn(id, row, feat)[1]} '
+                    f'{rgbl_fn(id, row, feat)[2]} '
+                    f'{rgbl_fn(id, row, feat)[3]}\n')
 
 
 def calc_iou(predictions, labels, num_labels):
@@ -440,7 +644,10 @@ def inference(model, dataloader, config, logger, rank=0, world_size=1, save=Fals
                     selector = batched_coords[:, 0] == i
                     single_scene_coords = batched_coords[selector][:, 1:]
                     single_scene_predictions = batched_prediction[selector]
-                    save_prediction(single_scene_coords, single_scene_predictions, f"{config.eval_result_dir}/{global_cnt}.ply", mode="prediction")
+                    save_prediction(single_scene_coords,
+                                    single_scene_predictions,
+                                    f"{config.eval_result_dir}/{global_cnt}_predicted_inference.ply",
+                                    mode="prediction")
                     global_cnt += 1
             else:
                 global_cnt += config.train_batch_size
@@ -544,7 +751,7 @@ def train(model, dataloader, val_dataloader, config, logger, rank=0, world_size=
                 precisions.clear()
                 # loss /= config.optim_step
                 optimizer.step()
-                
+
                 optimizer.zero_grad()
                 scheduler.step()
 
@@ -564,8 +771,10 @@ def train(model, dataloader, val_dataloader, config, logger, rank=0, world_size=
                     def get_lr(optimizer):
                         for param_group in optimizer.param_groups:
                             return param_group['lr']
+
                     logger.info(
-                        f"TRAIN at global step #{global_step} Epoch #{epoch+1} Step #{step+1} / {len(dataloader)}: loss:{loss:.4f}, precision: {precision:.4f}")
+                        f"TRAIN at global step #{global_step} Epoch #{epoch+1} Step #{step+1} / {len(dataloader)}: loss:{loss:.4f}, precision: {precision:.4f}"
+                    )
                     if config.wandb:
                         obj = {
                             'loss': loss.cpu().item(),
@@ -649,5 +858,95 @@ def train(model, dataloader, val_dataloader, config, logger, rank=0, world_size=
     # TODO Obtain augmented results
 
 
+def stat():
+    results_dir = '/home/cloudroot/3DScanSeg/results/200'
+    with open('splits/scannet/scannetv2_train.txt') as f:
+        names = sorted([i.strip() for i in f.readlines()])
+    from tqdm import tqdm
+    bins_num = 200
+    stat = torch.zeros((20, bins_num))
+    for name in tqdm(names):
+        uncname = f"{results_dir}/{name.split('.')[0]}_unc.obj"
+        labelname = f"{results_dir}/{name.split('.')[0]}_predicted.obj"
+        unc = torch.load(uncname)
+        labels = torch.load(labelname)
+        for cls in range(20):
+            mask = labels == cls
+            stat[cls, :] += torch.histc(unc[:, cls][mask], bins_num, 0, 0.04)
+
+    save_hist(stat, f'./total_stat.png')
+    return stat
+
+
+def save_hist(t, path: str):
+    """
+    TODO
+    """
+    import matplotlib.pyplot as plt
+    t = t.numpy()
+    for cls in range(20):
+        plt.subplot(4, 5, cls + 1)
+        plt.bar(range(len(t[cls, :])), t[cls, :])
+    plt.savefig(path, dpi=1200)
+
+
+def extract_label():
+    '''DEPRECATED'''
+    results_dir = '/home/cloudroot/3DScanSeg/results/200'
+    with open('splits/scannet/scannetv2_train.txt') as f:
+        names = sorted([i.strip() for i in f.readlines()])
+    from plyfile import PlyData
+    from tqdm import tqdm
+    for name in tqdm(names):
+        plyname = f"{results_dir}/{name.split('.')[0]}_prediction.ply"
+        plydata = PlyData.read(plyname)
+        labels = torch.tensor(plydata['vertex']['label'])
+        torch.save(labels, f"{results_dir}/{name.split('.')[0]}_predicted_labels.obj")
+
+
+def unc_render(dataloader, config, logger, rank=0, world_size=1):
+    if rank > 0:
+        return
+    from tqdm import tqdm
+    global_cnt = 0
+    with open('splits/scannet/scannetv2_train.txt') as f:
+        names = sorted([i.strip() for i in f.readlines()])
+
+    for batched_coords, _, _ in dataloader:
+        for scene_id in range(config.test_batch_size):
+            selector = batched_coords[:, 0] == scene_id
+            single_scene_coords = batched_coords[selector][:, 1:]
+            name = names[global_cnt]
+            logger.info(f'---> Processing {name}')
+
+            uncs = torch.load(f'{config.unc_result_dir}/{name.split(".")[0]}_unc.obj')
+            labels = torch.load(f'{config.unc_result_dir}/{name.split(".")[0]}_predicted.obj')
+            coef = 4
+            uncs = uncs.gather(1, labels.unflatten(0, (labels.shape[0], 1)))
+            uncs = (1 - torch.exp(-coef * uncs / uncs.max()))
+
+            rgbs = np.array(list(COLOR_MAP.values()))[labels]
+            render(
+                f'{config.unc_result_dir}/{name.split(".")[0]}_predicted.ply',
+                single_scene_coords,
+                rgbs,
+                labels,
+            )
+
+            rgbs = np.ndarray((len(uncs), 3), dtype='u1')
+            rgbs[:, 0] = 127 + uncs.flatten() * 128
+            rgbs[:, 1] = 255 - uncs.flatten() * 128
+            rgbs[:, 2] = 127
+            render(
+                f'{config.unc_result_dir}/{name.split(".")[0]}_unc.ply',
+                single_scene_coords,
+                rgbs,
+                labels,
+            )
+            global_cnt += 1
+
+
 if __name__ == '__main__':
     main()
+    # stat()
+    # extract_label()

@@ -34,7 +34,7 @@ net_arg = add_argument_group('Network')
 net_arg.add_argument('--model', type=str, default='Res16UNet34C', help='Model name')
 net_arg.add_argument(
     '--conv1_kernel_size', type=int, default=5, help='First layer conv kernel size')
-net_arg.add_argument('--weights', type=str, default='None', help='Saved weights to load')
+net_arg.add_argument('--weights', type=str, default=None, help='Saved weights to load')
 net_arg.add_argument('--weights1', type=str, default='/home/aidrive1/workspace/luoly/dataset/final/min_weights/LR/unc/1/512/checkpoint_NoneRes16UNet34Cbest_val.pth', help='Saved weights to load')
 net_arg.add_argument('--weights2', type=str, default='/home/aidrive1/workspace/luoly/dataset/final/min_weights/LR/512/1/checkpoint_NoneRes16UNet34Cbest_val.pth', help='Saved weights to load')
 net_arg.add_argument('--weights3', type=str, default='/home/aidrive1/workspace/luoly/dataset/final/min_weights/LR/1024/1/checkpoint_NoneRes16UNet34Cbest_val.pth', help='Saved weights to load')
@@ -256,6 +256,12 @@ misc_arg.add_argument('--eval_result_dir', type=str, default='/')
 misc_arg.add_argument('--unc_stat_path', type=str, default='/')
 misc_arg.add_argument('--save_epoch', type=int, default=5)
 misc_arg.add_argument('--ignore_index', type=int, default=255)
+misc_arg.add_argument('--do_train', action='store_true')
+misc_arg.add_argument('--do_unc_inference', action='store_true')
+misc_arg.add_argument('--do_unc_demo', action='store_true')
+misc_arg.add_argument('--unc_dataset', type=str, default="")
+misc_arg.add_argument('--do_verbose_inference', action='store_true')
+misc_arg.add_argument('--do_unc_render', action='store_true')
 
 
 def get_config():

@@ -338,7 +338,66 @@ class Res16UNet34CUNC(Res16UNet34C):
     super().network_initialization(in_channels, out_channels, config, D)
     self.dropout = self.dropout = drop_out(0.5)
   def forward(self, x):
-    return self.dropout(super().forward(x))
+    out = self.conv0p1s1(x)
+    out = self.bn0(out)
+    out_p1 = self.relu(out)
+
+    out = self.conv1p1s2(out_p1)
+    out = self.bn1(out)
+    out = self.relu(out)
+    out_b1p2 = self.block1(out)
+
+    out = self.conv2p2s2(out_b1p2)
+    out = self.bn2(out)
+    out = self.relu(out)
+    out_b2p4 = self.block2(out)
+
+    out = self.conv3p4s2(out_b2p4)
+    out = self.bn3(out)
+    out = self.relu(out)
+    out_b3p8 = self.block3(out)
+
+    # pixel_dist=16
+    out = self.conv4p8s2(out_b3p8)
+    out = self.bn4(out)
+    out = self.relu(out)
+    out = self.block4(out)
+
+    # pixel_dist=8
+    out = self.convtr4p16s2(out)
+    out = self.bntr4(out)
+    out = self.relu(out)
+
+    out = me.cat(out, out_b3p8)
+    out = self.block5(out)
+
+    # pixel_dist=4
+    out = self.convtr5p8s2(out)
+    out = self.bntr5(out)
+    out = self.relu(out)
+
+    out = me.cat(out, out_b2p4)
+    out = self.block6(out)
+
+    # pixel_dist=2
+    out = self.convtr6p4s2(out)
+    out = self.bntr6(out)
+    out = self.relu(out)
+
+    out = me.cat(out, out_b1p2)
+    out = self.block7(out)
+
+    # pixel_dist=1
+    out = self.convtr7p2s2(out)
+    out = self.bntr7(out)
+    out = self.relu(out)
+
+    out = me.cat(out, out_p1)
+    out = self.block8(out)
+
+    out = self.dropout(out)
+
+    return self.final(out)
 
 class STRes16UNetBase(Res16UNetBase):
 
