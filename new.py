@@ -265,7 +265,7 @@ def main_worker(rank=0, world_size=1, init_method=None):
             batch_size=config.test_batch_size,
             limit_numpoints=False,
         )
-        unc_render(unc_dataloader, config, logger)
+        unc_render(unc_dataloader, config, logger, option=2)
     if world_size > 1:
         dist.destroy_process_group()
 
@@ -904,47 +904,78 @@ def extract_label():
         torch.save(labels, f"{results_dir}/{name.split('.')[0]}_predicted_labels.obj")
 
 
-def unc_render(dataloader, config, logger, rank=0, world_size=1):
+def unc_render(dataloader, config, logger, rank=0, world_size=1, option=1):
     if rank > 0:
         return
     from tqdm import tqdm
+    from plyfile import PlyData
     global_cnt = 0
     with open('splits/scannet/scannetv2_train.txt') as f:
         names = sorted([i.strip() for i in f.readlines()])
 
-    for batched_coords, _, _ in dataloader:
-        for scene_id in range(config.test_batch_size):
-            selector = batched_coords[:, 0] == scene_id
-            single_scene_coords = batched_coords[selector][:, 1:]
-            name = names[global_cnt]
-            logger.info(f'---> Processing {name}')
+    if option == 1:
+        # Option 1: use dataloader to obtain coordinates
+        for batched_coords, _, _ in dataloader:
+            for scene_id in range(config.test_batch_size):
+                selector = batched_coords[:, 0] == scene_id
+                single_scene_coords = batched_coords[selector][:, 1:]
+                name = names[global_cnt]
+                logger.info(f'---> Processing {name}')
 
+                uncs = torch.load(f'{config.unc_result_dir}/{name.split(".")[0]}_unc.obj')
+                labels = torch.load(f'{config.unc_result_dir}/{name.split(".")[0]}_predicted.obj')
+                coef = 4
+                uncs = uncs.gather(1, labels.unflatten(0, (labels.shape[0], 1)))
+                uncs = (1 - torch.exp(-coef * uncs / uncs.max()))
+
+                rgbs = np.array(list(COLOR_MAP.values()))[labels]
+                render(
+                    f'{config.unc_result_dir}/{name.split(".")[0]}_predicted.ply',
+                    single_scene_coords,
+                    rgbs,
+                    labels,
+                )
+
+                rgbs = np.ndarray((len(uncs), 3), dtype='u1')
+                rgbs[:, 0] = 127 + uncs.flatten() * 128
+                rgbs[:, 1] = 255 - uncs.flatten() * 128
+                rgbs[:, 2] = 127
+                render(
+                    f'{config.unc_result_dir}/{name.split(".")[0]}_unc.ply',
+                    single_scene_coords,
+                    rgbs,
+                    labels,
+                )
+                global_cnt += 1
+    elif option == 2:
+        # Option 2: use original pointcloud and obj to obtain coordinates  
+        path = ''  
+        for name in tqdm(names, desc=path):
+            # FIXME fix this path
+            path = f'/home/cloudroot/data/scannet_processed/full_mesh/{name.split(".")[0]}/{name.split(".")[0]}_vh_clean_2.labels.ply'
+            original = PlyData.read(path)
             uncs = torch.load(f'{config.unc_result_dir}/{name.split(".")[0]}_unc.obj')
             labels = torch.load(f'{config.unc_result_dir}/{name.split(".")[0]}_predicted.obj')
             coef = 4
             uncs = uncs.gather(1, labels.unflatten(0, (labels.shape[0], 1)))
             uncs = (1 - torch.exp(-coef * uncs / uncs.max()))
 
-            rgbs = np.array(list(COLOR_MAP.values()))[labels]
-            render(
-                f'{config.unc_result_dir}/{name.split(".")[0]}_predicted.ply',
-                single_scene_coords,
-                rgbs,
-                labels,
-            )
+            inverse_mappings = torch.load(f'/home/cloudroot/3DScanSeg/results/mappings/{name.split(".")[0]}_mapping.obj')['inverse']
+            uncs = uncs[inverse_mappings]
+            labels = labels[inverse_mappings]
 
-            rgbs = np.ndarray((len(uncs), 3), dtype='u1')
-            rgbs[:, 0] = 127 + uncs.flatten() * 128
-            rgbs[:, 1] = 255 - uncs.flatten() * 128
-            rgbs[:, 2] = 127
-            render(
-                f'{config.unc_result_dir}/{name.split(".")[0]}_unc.ply',
-                single_scene_coords,
-                rgbs,
-                labels,
-            )
-            global_cnt += 1
-
+            # prediction
+            original['vertex']['red'] = np.array(list(COLOR_MAP.values()))[labels][:, 0]
+            original['vertex']['green'] = np.array(list(COLOR_MAP.values()))[labels][:, 1]
+            original['vertex']['blue'] = np.array(list(COLOR_MAP.values()))[labels][:, 2]
+            original['vertex']['label'] = labels
+            original.write(f'{config.unc_result_dir}/{name.split(".")[0]}_predicted_raw.ply')
+        
+            original['vertex']['red'] = 127 + uncs.flatten() * 128
+            original['vertex']['green'] = 255 - uncs.flatten() * 128
+            original['vertex']['blue'] = 127
+            original['vertex']['label'] = labels
+            original.write(f'{config.unc_result_dir}/{name.split(".")[0]}_unc_raw.ply')
 
 if __name__ == '__main__':
     main()
