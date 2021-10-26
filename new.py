@@ -26,7 +26,7 @@ import MinkowskiEngine as ME
 import wandb
 
 
-def checkpoint(model, optimizer, scheduler, config, prefix='', **kwarg):
+def checkpoint(model, optimizer, scheduler, config, prefix='', world_size=1, **kwarg):
     """
     Save checkpoint of current model, optimizer, scheduler
     Other basic information are stored in kwargs
@@ -34,7 +34,7 @@ def checkpoint(model, optimizer, scheduler, config, prefix='', **kwarg):
     os.makedirs(config.checkpoint_dir, exist_ok=True)
     filename = f"{config.checkpoint_dir}/{config.run_name}{('_' +  prefix) if len(prefix) > 0 else ''}.pth"
     states = {
-        'state_dict': model.module.state_dict(),  # * load a GPU checkpoint to CPU
+        'state_dict': model.module.state_dict() if world_size > 1 else model.state_dict(),  # * load a GPU checkpoint to CPU
         'optimizer': optimizer.state_dict(),
         'scheduler': scheduler.state_dict(),
         'config': vars(config),
@@ -830,6 +830,7 @@ def train(model, dataloader, val_dataloader, config, logger, rank=0, world_size=
                                 best_miou=best_miou,
                                 val_loss=val_loss,
                                 epoch=epoch,
+                                world_size=world_size,
                             )
             torch.cuda.empty_cache()
 
@@ -850,6 +851,7 @@ def train(model, dataloader, val_dataloader, config, logger, rank=0, world_size=
                     scheduler,
                     config,
                     prefix='latest',
+                    world_size=world_size,
                     **args,
                 )
                 logger.info(f"Checkpoint at epoch #{epoch} saved")
