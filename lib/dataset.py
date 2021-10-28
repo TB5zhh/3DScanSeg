@@ -229,7 +229,8 @@ class VoxelizationDataset(VoxelizationDatasetBase):
         data_root=data_root,
         ignore_mask=ignore_label,
         return_transformation=return_transformation)
-
+    # with open('splits/scannet/scannetv2_train.txt') as f:
+    #   self.names = sorted([i.strip() for i in f.readlines()])
     # Prevoxel transformations
     self.voxelizer = Voxelizer(
         voxel_size=self.VOXEL_SIZE,
@@ -282,6 +283,12 @@ class VoxelizationDataset(VoxelizationDatasetBase):
 
     coords, feats, labels, transformation = self.voxelizer.voxelize(
         coords, feats, labels, center=center)
+
+    # For saving mappings
+    # coords, feats, labels, transformation, mapping, inverse_mapping = self.voxelizer.voxelize(
+    #     coords, feats, labels, center=center)
+    # name = self.names[index]
+    # torch.save({'mapping':mapping.cpu(),'inverse':inverse_mapping.cpu()}, f'/home/cloudroot/3DScanSeg/results/mappings/{name.split(".")[0]}_mapping.obj')
 
     coords = coords.numpy()
     # map labels not used for evaluation to ignore_label
