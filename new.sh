@@ -12,7 +12,7 @@ python -u new.py \
     --num_workers 4 \
     --validate_step 50 \
     --optim_step 1 \
-    --train_batch_size 8   \
+    --train_batch_size 16   \
     --val_batch_size 24  \
     --lr 0.1 \
     --save_epoch 5 \
@@ -20,9 +20,9 @@ python -u new.py \
     --run_name finetune_b_$POINTS \
     --scheduler PolyLR \
     --do_train \
+    --resume /home/cloudroot/3DScanSeg/checkpoints/finetune_b_${POINTS}_latest.pth \
     --wandb True
     
-    # --resume /home/cloudroot/3DScanSeg/checkpoints/finetune_${POINTS}_latest.pth \
 
 # finetune_a: move dropout layer before the linear layer
 # finetune_b: smaller batch size
