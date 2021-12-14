@@ -626,10 +626,12 @@ def save_prediction(coords, feats, path, mode='unc', in_fn=None):
                     f'{rgbl_fn(id, row, feat)[3]}\n')
 
 
-def calc_iou(predictions, labels, num_labels):
-    """Calculate mIoU over a bunch of predictions and labels. The input tensors should be flattened"""
+def fast_hist(predictions, labels, num_labels):
     selector = (labels >= 0) & (labels < num_labels)  # ndarray of bool type, selector
     stat = torch.bincount(num_labels * labels[selector].int() + predictions[selector], minlength=num_labels**2).reshape(num_labels, num_labels)
+    return stat
+
+def calc_iou(stat):
     with np.errstate(divide='ignore', invalid='ignore'):
         return stat.diagonal() / (stat.sum(dim=0) + stat.sum(dim=1) - stat.diagonal() + 1e-7)
 
@@ -646,8 +648,10 @@ def inference(model, dataloader, config, logger, rank=0, world_size=1, save=Fals
         global_cnt = 0
 
         losses = []
-        ious = []
-        ious_perclass = []
+        num_labels = dataloader.dataset.NUM_LABELS
+        iu_hist = torch.zeros((num_labels, num_labels))
+        # ious = []
+        # ious_perclass = []
         # One epoch
         for step, (batched_coords, batched_feats, batched_targets) in enumerate(dataloader):
 
@@ -681,24 +685,24 @@ def inference(model, dataloader, config, logger, rank=0, world_size=1, save=Fals
             if evaluate:
                 # batched_targets = batched_targets.to(device)
                 criterion = nn.CrossEntropyLoss(ignore_index=config.ignore_index)
-                num_labels = dataloader.dataset.NUM_LABELS
-
                 loss = criterion(batched_outputs, batched_targets.long())
-                iou = calc_iou(batched_prediction.flatten(), batched_targets.flatten(), num_labels)
-                ious_perclass.append(iou)
+                iu_hist += fast_hist(batched_prediction.flatten(), batched_targets.flatten(), num_labels)
+                iou = calc_iou(iu_hist)
+                # ious_perclass.append(iou)
 
                 if world_size == 1 or rank == 0:
                     logger.info(f"---> inference #{step} of {len(dataloader)} loss: {loss:.4f} iou: {iou.mean():.4f}")
                 losses.append(loss)
-                ious.append(iou.mean())
+                # ious.append(iou.mean())
 
                 # TODO calculate average precision
                 probablities = F.softmax(batched_outputs, dim=1)  # pylint: disable=unused-variable
                 # avg_precision =
 
     if evaluate:
-        ious_perclass = torch.stack(ious_perclass).mean(dim=0)
-        return torch.stack(losses).mean(), torch.stack(ious).mean(), ious_perclass
+        # ious_perclass = torch.stack(ious_perclass).mean(dim=0)
+        # return torch.stack(losses).mean(), torch.stack(ious).mean(), ious_perclass
+        return torch.stack(losses).mean(), iou.mean(), iou
 
 
 # !!! The output of the model should be .cpu()

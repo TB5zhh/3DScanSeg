@@ -33,7 +33,7 @@ python -u new.py \
     --lr $LR \
     --train_batch_size $TRAIN_BATCH_SIZE  \
     --scannet_path $DATASET_PATH \
-    --wandb True 
+    --wandb False
     # --resume 1
     
 # sleep 30
