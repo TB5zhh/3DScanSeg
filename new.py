@@ -4,7 +4,6 @@ import time
 import random
 
 import numpy as np
-from numpy.core.fromnumeric import argmax, diagonal
 import torch
 from torch import nn
 import torch.nn.functional as F
@@ -146,16 +145,20 @@ def main_worker(rank=0, world_size=1, init_method=None):
     model = model_class(num_in_channel, num_labels, config)
 
     # Load pretrained weights
-    if config.resume:
-        state = torch.load(config.resume, map_location=f'cuda:{device}')
-        model.load_state_dict(state['state_dict'])
-        if rank == 0:
-            logger.info(f"Checkpoint resumed from {config.resume}")  # pylint: disable=W1203
-    elif config.weights:
+    if config.weights:
         state = torch.load(config.weights, map_location=f'cuda:{device}')
         model.load_state_dict({k: v for k, v in state['state_dict'].items() if not k.startswith('projector.')})
         if rank == 0:
             logger.info(f"Weights loaded from {config.weights}")  # pylint: disable=W1203
+    if config.resume:
+        try:
+            state = torch.load(f"checkpoints/{config.run_name}_latest.pth", map_location=f'cuda:{device}')
+            model.load_state_dict(state['state_dict'])
+            if rank == 0:
+                logger.info(f"Checkpoint resumed from {config.resume}")  # pylint: disable=W1203
+        except Exception as e:
+            logger.info(e)
+            logger.warn(f"checkpoint not found")
 
     model = model.to(device)
     if rank == 0:
@@ -173,6 +176,8 @@ def main_worker(rank=0, world_size=1, init_method=None):
     if config.wandb and rank == 0:
         #wandb.login('6653cea7375b6dd706fe1386010d63e776edc4d4')
         wandb.init(project='3dsp', entity='tb5zhh')
+        wandb.run.name = f"{config.run_name}-{wandb.run.id}"
+        wandb.run.save()
         wandb.config.update(config)
         # wandb.watch(model)
 
@@ -209,6 +214,25 @@ def main_worker(rank=0, world_size=1, init_method=None):
         if rank == 0:
             logger.info("Dataloader setup done")
         train(model, train_dataloader, val_dataloader, config, logger, rank=rank, world_size=world_size)
+    elif config.do_validate:
+        val_dataset_cls = load_dataset(config.val_dataset)
+        val_dataloader = initialize_data_loader(
+            val_dataset_cls,
+            config,
+            num_workers=config.num_workers,
+            phase='val',
+            augment_data=False,
+            shuffle=False,
+            repeat=False,
+            batch_size=config.val_batch_size,
+            limit_numpoints=False,
+        )
+        if rank == 0:
+            logger.info("Dataloader setup done")
+        val_loss, val_miou, iou_per_class = inference(model, val_dataloader, config, logger, rank=rank, world_size=world_size, evaluate=True)
+        logger.info(f"VAL: loss (avg): {val_loss.item():.4f}, iou (avg): {val_miou.item():.4f}")
+        for idx, i in enumerate(iou_per_class):
+            logger.info(f"VAL: iou (cls#{idx}): {i.item():.4f}")
     elif config.do_unc_demo:
         val_dataset_cls = load_dataset(config.unc_dataset)
         unc_dataloader = initialize_data_loader(
@@ -623,6 +647,7 @@ def inference(model, dataloader, config, logger, rank=0, world_size=1, save=Fals
 
         losses = []
         ious = []
+        ious_perclass = []
         # One epoch
         for step, (batched_coords, batched_feats, batched_targets) in enumerate(dataloader):
 
@@ -660,19 +685,20 @@ def inference(model, dataloader, config, logger, rank=0, world_size=1, save=Fals
 
                 loss = criterion(batched_outputs, batched_targets.long())
                 iou = calc_iou(batched_prediction.flatten(), batched_targets.flatten(), num_labels)
-                iou = iou.mean()
+                ious_perclass.append(iou)
 
                 if world_size == 1 or rank == 0:
-                    logger.info(f"---> inference #{step} of {len(dataloader)} loss: {loss:.4f} iou: {iou:.4f}")
+                    logger.info(f"---> inference #{step} of {len(dataloader)} loss: {loss:.4f} iou: {iou.mean():.4f}")
                 losses.append(loss)
-                ious.append(iou)
+                ious.append(iou.mean())
 
                 # TODO calculate average precision
                 probablities = F.softmax(batched_outputs, dim=1)  # pylint: disable=unused-variable
                 # avg_precision =
 
     if evaluate:
-        return torch.stack(losses).mean(), torch.stack(ious).mean()
+        ious_perclass = torch.stack(ious_perclass).mean(dim=0)
+        return torch.stack(losses).mean(), torch.stack(ious).mean(), ious_perclass
 
 
 # !!! The output of the model should be .cpu()
@@ -692,8 +718,8 @@ def train(model, dataloader, val_dataloader, config, logger, rank=0, world_size=
         logger.info("Start training")
 
     # Load state dictionaries of optimizer and scheduler from checkpoint
-    if config.resume:
-        states = torch.load(config.resume, map_location=f"cuda:{device}")
+    if config.resume and os.path.isfile(f"checkpoints/{config.run_name}_latest.pth"):
+        states = torch.load(f"checkpoints/{config.run_name}_latest.pth", map_location=f"cuda:{device}")
         optimizer.load_state_dict(states['optimizer'])
         scheduler.load_state_dict(states['scheduler'])
         start_epoch = states['epoch'] + 1
@@ -801,10 +827,13 @@ def train(model, dataloader, val_dataloader, config, logger, rank=0, world_size=
                 # This step take extra GPU memory so clearup in advance is needed
                 if optim_step % config.validate_step == 0 and rank == 0:
                     val_step += 1
-                    val_loss, val_miou = inference(model, val_dataloader, config, logger, rank=rank, world_size=world_size, evaluate=True)
+                    val_loss, val_miou, iou_per_class = inference(model, val_dataloader, config, logger, rank=rank, world_size=world_size, evaluate=True)
 
                     if world_size == 1 or rank == 0:
                         logger.info(f"VAL   at global step #{global_step}: loss (avg): {val_loss.item():.4f}, iou (avg): {val_miou.item():.4f}")
+                        for idx, i in enumerate(iou_per_class):
+                            logger.info(f"VAL   at global step #{global_step}: iou (cls#{idx}): {i.item():.4f}")
+
                         if config.wandb:
                             obj = {
                                 'val_loss': val_loss.cpu().item(),
@@ -860,35 +889,51 @@ def train(model, dataloader, val_dataloader, config, logger, rank=0, world_size=
     # TODO Obtain augmented results
 
 
-def stat():
-    results_dir = '/home/cloudroot/3DScanSeg/results/200'
-    with open('splits/scannet/scannetv2_train.txt') as f:
-        names = sorted([i.strip() for i in f.readlines()])
-    from tqdm import tqdm
-    bins_num = 200
-    stat = torch.zeros((20, bins_num))
-    for name in tqdm(names):
-        uncname = f"{results_dir}/{name.split('.')[0]}_unc.obj"
-        labelname = f"{results_dir}/{name.split('.')[0]}_predicted.obj"
-        unc = torch.load(uncname)
-        labels = torch.load(labelname)
-        for cls in range(20):
-            mask = labels == cls
-            stat[cls, :] += torch.histc(unc[:, cls][mask], bins_num, 0, 0.04)
+def stat(count=200):
+    stats = []
+    for count in (200, 100, 50, 20):
+        try:
+            stat = torch.load(f'results/{count}/stat_unc.obj')
+            stats.append(stat)
+        except:
+            results_dir = f'results/{count}'
+            with open('splits/scannet/scannetv2_train.txt') as f:
+                names = sorted([i.strip() for i in f.readlines()])
+            from tqdm import tqdm
+            bins_num = 200
+            stat = torch.zeros((20, bins_num)).cuda()
+            for name in tqdm(names):
+                # FIXME add mapping
+                uncname = f"{results_dir}/{name.split('.')[0]}_unc.obj"
+                labelname = f"{results_dir}/{name.split('.')[0]}_predicted.obj"
+                unc = torch.load(uncname).cuda()
+                labels = torch.load(labelname).cuda()
+                for cls in range(20):
+                    mask = labels == cls
+                    stat[cls, :] += torch.histc(unc[:, cls][mask], bins_num, 0, 0.04)
+            stat = stat.cpu()
+            stats.append(stat)
+            torch.save(stat, f'results/{count}/stat_unc.obj')
+    save_hist(stats, f'./total_stat.png')
+    return stats
 
-    save_hist(stat, f'./total_stat.png')
-    return stat
 
-
-def save_hist(t, path: str):
+def save_hist(ts, path: str):
     """
     TODO
     """
     import matplotlib.pyplot as plt
-    t = t.numpy()
-    for cls in range(20):
-        plt.subplot(4, 5, cls + 1)
-        plt.bar(range(len(t[cls, :])), t[cls, :])
+    ylims=[1e7, 1e7, 1e7, 1e6, 1e6, 1e6, 1e6, 8e5, 8e5, 5e5, 2e4, 2e4, 15e4, 6e5, 5e4, 1e5, 12e4,5e4, 1e5, 1e6]
+    plt.figure(figsize=(20, 4), dpi=1200)
+    for idx, t in enumerate(ts):
+        t = t.numpy()
+        for cls in range(20):
+            plt.subplot(4, 20, idx*20 + cls + 1)
+            plt.ylim(0, ylims[cls])
+            plt.xticks([])
+            plt.yticks([])
+            plt.bar(range(len(t[cls, :])), t[cls, :])
+    plt.tight_layout()
     plt.savefig(path, dpi=1200)
 
 
@@ -954,7 +999,7 @@ def unc_render(dataloader, config, logger, rank=0, world_size=1, option=1):
         path = ''  
         for name in tqdm(names, desc=path):
             # FIXME fix this path
-            path = f'/home/cloudroot/data/scannet_processed/full_mesh/{name.split(".")[0]}/{name.split(".")[0]}_vh_clean_2.labels.ply'
+            path = f'/home/aidrive/tb5zhh/data/full_mesh/train/{name}'
             original = PlyData.read(path)
             uncs = torch.load(f'{config.unc_result_dir}/{name.split(".")[0]}_unc.obj')
             labels = torch.load(f'{config.unc_result_dir}/{name.split(".")[0]}_predicted.obj')
@@ -962,24 +1007,26 @@ def unc_render(dataloader, config, logger, rank=0, world_size=1, option=1):
             uncs = uncs.gather(1, labels.unflatten(0, (labels.shape[0], 1)))
             uncs = (1 - torch.exp(-coef * uncs / uncs.max()))
 
-            inverse_mappings = torch.load(f'/home/cloudroot/3DScanSeg/results/mappings/{name.split(".")[0]}_mapping.obj')['inverse']
+            inverse_mappings = torch.load(f'results/mappings/{name.split(".")[0]}_mapping.obj')['inverse']
             uncs = uncs[inverse_mappings]
             labels = labels[inverse_mappings]
 
             # prediction
-            original['vertex']['red'] = np.array(list(COLOR_MAP.values()))[labels][:, 0]
-            original['vertex']['green'] = np.array(list(COLOR_MAP.values()))[labels][:, 1]
-            original['vertex']['blue'] = np.array(list(COLOR_MAP.values()))[labels][:, 2]
-            original['vertex']['label'] = labels
-            original.write(f'{config.unc_result_dir}/{name.split(".")[0]}_predicted_raw.ply')
+            # original['vertex']['red'] = np.array(list(COLOR_MAP.values()))[labels][:, 0]
+            # original['vertex']['green'] = np.array(list(COLOR_MAP.values()))[labels][:, 1]
+            # original['vertex']['blue'] = np.array(list(COLOR_MAP.values()))[labels][:, 2]
+            # original['vertex']['label'] = labels
+            # original.write(f'{config.unc_result_dir}/{name.split(".")[0]}_predicted_raw.ply')
         
-            original['vertex']['red'] = 127 + uncs.flatten() * 128
-            original['vertex']['green'] = 255 - uncs.flatten() * 128
-            original['vertex']['blue'] = 127
+            original['vertex']['red'] = 24 * (1 - uncs.flatten()) + 255 * (uncs.flatten())
+            original['vertex']['green'] = 96 * (1 - uncs.flatten()) + 128 * (uncs.flatten())
+            original['vertex']['blue'] = 192 * (1 - uncs.flatten()) + 0 * (uncs.flatten())
             original['vertex']['label'] = labels
+            # original.write(f'test_unc_raw.ply')
             original.write(f'{config.unc_result_dir}/{name.split(".")[0]}_unc_raw.ply')
+
 
 if __name__ == '__main__':
     main()
-    # stat()
+    # stat(20)
     # extract_label()

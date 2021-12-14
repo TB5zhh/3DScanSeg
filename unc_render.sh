@@ -11,6 +11,6 @@ python -u new.py \
     --unc_result_dir $UNC_RESULT_DIR \
     --unc_round 50 \
     --unc_dataset ScannetVoxelization2cmtestDataset \
-    --scannet_path /home/cloudroot/data/scannet_processed/$POINTS/train \
-    --scannet_test_path /home/cloudroot/data/scannet_processed/full/train \
+    --scannet_path ~/data/$POINTS/train \
+    --scannet_test_path ~/data/full/train \
     --do_unc_render

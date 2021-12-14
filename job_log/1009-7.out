@@ -1,0 +1,867 @@
+20_fit_double
+/home/aidrive/tb5zhh/.conda/envs/tbw_3dscan/lib/python3.8/site-packages/MinkowskiEngine/__init__.py:36: UserWarning: The environment variable `OMP_NUM_THREADS` not set. MinkowskiEngine will automatically set `OMP_NUM_THREADS=16`. If you want to set `OMP_NUM_THREADS` manually, please export it on the command line before running a python script. e.g. `export OMP_NUM_THREADS=12; python your_program.py`. It is recommended to set it below 24.
+  warnings.warn(
+[2021-11-09 15:58:52][__main__	][INFO	] Run with 1 cpu
+[2021-11-09 15:58:52][__main__	][INFO	] Running config
+[2021-11-09 15:58:52][__main__	][INFO	] --->                          model: Res16UNet34C
+[2021-11-09 15:58:52][__main__	][INFO	] --->              conv1_kernel_size: 5
+[2021-11-09 15:58:52][__main__	][INFO	] --->                        weights: checkpoints/pretrain_20000.pth
+[2021-11-09 15:58:52][__main__	][INFO	] --->                       weights1: /home/aidrive1/workspace/luoly/dataset/final/min_weights/LR/unc/1/512/checkpoint_NoneRes16UNet34Cbest_val.pth
+[2021-11-09 15:58:52][__main__	][INFO	] --->                       weights2: /home/aidrive1/workspace/luoly/dataset/final/min_weights/LR/512/1/checkpoint_NoneRes16UNet34Cbest_val.pth
+[2021-11-09 15:58:52][__main__	][INFO	] --->                       weights3: /home/aidrive1/workspace/luoly/dataset/final/min_weights/LR/1024/1/checkpoint_NoneRes16UNet34Cbest_val.pth
+[2021-11-09 15:58:52][__main__	][INFO	] --->        weights_for_inner_model: False
+[2021-11-09 15:58:52][__main__	][INFO	] --->                      dilations: [1, 1, 1, 1]
+[2021-11-09 15:58:52][__main__	][INFO	] --->                   wrapper_type: None
+[2021-11-09 15:58:52][__main__	][INFO	] --->            wrapper_region_type: 1
+[2021-11-09 15:58:52][__main__	][INFO	] --->            wrapper_kernel_size: 3
+[2021-11-09 15:58:52][__main__	][INFO	] --->                     wrapper_lr: 0.1
+[2021-11-09 15:58:52][__main__	][INFO	] --->           meanfield_iterations: 10
+[2021-11-09 15:58:52][__main__	][INFO	] --->              crf_spatial_sigma: 1
+[2021-11-09 15:58:52][__main__	][INFO	] --->            crf_chromatic_sigma: 12
+[2021-11-09 15:58:52][__main__	][INFO	] --->                      optimizer: SGD
+[2021-11-09 15:58:52][__main__	][INFO	] --->                             lr: 0.1
+[2021-11-09 15:58:52][__main__	][INFO	] --->                   sgd_momentum: 0.9
+[2021-11-09 15:58:52][__main__	][INFO	] --->                  sgd_dampening: 0.1
+[2021-11-09 15:58:52][__main__	][INFO	] --->                     adam_beta1: 0.9
+[2021-11-09 15:58:52][__main__	][INFO	] --->                     adam_beta2: 0.999
+[2021-11-09 15:58:52][__main__	][INFO	] --->                   weight_decay: 0.0001
+[2021-11-09 15:58:52][__main__	][INFO	] --->           param_histogram_freq: 100
+[2021-11-09 15:58:52][__main__	][INFO	] --->           save_param_histogram: False
+[2021-11-09 15:58:52][__main__	][INFO	] --->                      iter_size: 1
+[2021-11-09 15:58:52][__main__	][INFO	] --->                    bn_momentum: 0.02
+[2021-11-09 15:58:52][__main__	][INFO	] --->                      scheduler: PolyLR
+[2021-11-09 15:58:52][__main__	][INFO	] --->                       max_iter: 30000
+[2021-11-09 15:58:52][__main__	][INFO	] --->                      step_size: 20000.0
+[2021-11-09 15:58:52][__main__	][INFO	] --->                     step_gamma: 0.1
+[2021-11-09 15:58:52][__main__	][INFO	] --->                     poly_power: 0.9
+[2021-11-09 15:58:52][__main__	][INFO	] --->                      exp_gamma: 0.95
+[2021-11-09 15:58:52][__main__	][INFO	] --->                  exp_step_size: 445
+[2021-11-09 15:58:52][__main__	][INFO	] --->                        log_dir: log
+[2021-11-09 15:58:52][__main__	][INFO	] --->                       data_dir: data
+[2021-11-09 15:58:52][__main__	][INFO	] --->                        dataset: ScannetVoxelization2cmDataset
+[2021-11-09 15:58:52][__main__	][INFO	] --->                    testdataset: ScannetVoxelization2cmtestDataset
+[2021-11-09 15:58:52][__main__	][INFO	] --->              temporal_dilation: 30
+[2021-11-09 15:58:52][__main__	][INFO	] --->                temporal_numseq: 3
+[2021-11-09 15:58:52][__main__	][INFO	] --->                      point_lim: -1
+[2021-11-09 15:58:52][__main__	][INFO	] --->                  pre_point_lim: -1
+[2021-11-09 15:58:52][__main__	][INFO	] --->                     batch_size: 1
+[2021-11-09 15:58:52][__main__	][INFO	] --->                test_batch_size: 1
+[2021-11-09 15:58:52][__main__	][INFO	] --->                     cache_data: False
+[2021-11-09 15:58:52][__main__	][INFO	] --->                    num_workers: 4
+[2021-11-09 15:58:52][__main__	][INFO	] --->                num_val_workers: 1
+[2021-11-09 15:58:52][__main__	][INFO	] --->                   ignore_label: 255
+[2021-11-09 15:58:52][__main__	][INFO	] --->          return_transformation: False
+[2021-11-09 15:58:52][__main__	][INFO	] --->         ignore_duplicate_class: False
+[2021-11-09 15:58:52][__main__	][INFO	] --->                   partial_crop: 0.0
+[2021-11-09 15:58:52][__main__	][INFO	] --->          train_limit_numpoints: 0
+[2021-11-09 15:58:52][__main__	][INFO	] --->                   synthia_path: /home/chrischoy/datasets/Synthia/Synthia4D
+[2021-11-09 15:58:52][__main__	][INFO	] --->            synthia_camera_path: /home/chrischoy/datasets/Synthia/%s/CameraParams/
+[2021-11-09 15:58:52][__main__	][INFO	] --->  synthia_camera_intrinsic_file: intrinsics.txt
+[2021-11-09 15:58:52][__main__	][INFO	] ---> synthia_camera_extrinsics_file: Stereo_Right/Omni_F/%s.txt
+[2021-11-09 15:58:52][__main__	][INFO	] --->         temporal_rand_dilation: False
+[2021-11-09 15:58:52][__main__	][INFO	] --->           temporal_rand_numseq: False
+[2021-11-09 15:58:52][__main__	][INFO	] --->                   scannet_path: /home/aidrive/tb5zhh/data/20_fit_double/train
+[2021-11-09 15:58:52][__main__	][INFO	] --->              scannet_test_path: /home/aidrive/tb5zhh/data/full/train
+[2021-11-09 15:58:52][__main__	][INFO	] --->                stanford3d_path: /home/chrischoy/datasets/Stanford3D
+[2021-11-09 15:58:52][__main__	][INFO	] --->                       is_train: True
+[2021-11-09 15:58:52][__main__	][INFO	] --->                      stat_freq: 40
+[2021-11-09 15:58:52][__main__	][INFO	] --->                 test_stat_freq: 100
+[2021-11-09 15:58:52][__main__	][INFO	] --->                test_stat_freq1: 312
+[2021-11-09 15:58:52][__main__	][INFO	] --->                      save_freq: 1000
+[2021-11-09 15:58:52][__main__	][INFO	] --->                       val_freq: 2
+[2021-11-09 15:58:52][__main__	][INFO	] --->               empty_cache_freq: 1
+[2021-11-09 15:58:52][__main__	][INFO	] --->                    train_phase: train
+[2021-11-09 15:58:52][__main__	][INFO	] --->                      val_phase: val
+[2021-11-09 15:58:52][__main__	][INFO	] --->              overwrite_weights: True
+[2021-11-09 15:58:52][__main__	][INFO	] --->                         resume: 1
+[2021-11-09 15:58:52][__main__	][INFO	] --->               resume_optimizer: True
+[2021-11-09 15:58:52][__main__	][INFO	] --->                  eval_upsample: False
+[2021-11-09 15:58:52][__main__	][INFO	] --->         lenient_weight_loading: False
+[2021-11-09 15:58:52][__main__	][INFO	] --->         distributed_world_size: 2
+[2021-11-09 15:58:52][__main__	][INFO	] --->               distributed_rank: 0
+[2021-11-09 15:58:52][__main__	][INFO	] --->            distributed_backend: nccl
+[2021-11-09 15:58:52][__main__	][INFO	] --->        distributed_init_method: 
+[2021-11-09 15:58:52][__main__	][INFO	] --->               distributed_port: 10010
+[2021-11-09 15:58:52][__main__	][INFO	] --->                      device_id: 0
+[2021-11-09 15:58:52][__main__	][INFO	] --->           distributed_no_spawn: True
+[2021-11-09 15:58:52][__main__	][INFO	] --->                    ddp_backend: c10d
+[2021-11-09 15:58:52][__main__	][INFO	] --->                  bucket_cap_mb: 25
+[2021-11-09 15:58:52][__main__	][INFO	] --->                   use_feat_aug: True
+[2021-11-09 15:58:52][__main__	][INFO	] --->     data_aug_color_trans_ratio: 0.1
+[2021-11-09 15:58:52][__main__	][INFO	] --->      data_aug_color_jitter_std: 0.05
+[2021-11-09 15:58:52][__main__	][INFO	] --->                normalize_color: True
+[2021-11-09 15:58:52][__main__	][INFO	] --->             data_aug_scale_min: 0.9
+[2021-11-09 15:58:52][__main__	][INFO	] --->             data_aug_scale_max: 1.1
+[2021-11-09 15:58:52][__main__	][INFO	] --->               data_aug_hue_max: 0.5
+[2021-11-09 15:58:52][__main__	][INFO	] --->        data_aug_saturation_max: 0.2
+[2021-11-09 15:58:52][__main__	][INFO	] --->                      visualize: False
+[2021-11-09 15:58:52][__main__	][INFO	] --->          test_temporal_average: False
+[2021-11-09 15:58:52][__main__	][INFO	] --->                 visualize_path: outputs/visualize
+[2021-11-09 15:58:52][__main__	][INFO	] --->                save_prediction: False
+[2021-11-09 15:58:52][__main__	][INFO	] --->                  save_pred_dir: outputs/pred
+[2021-11-09 15:58:52][__main__	][INFO	] --->                     test_phase: test
+[2021-11-09 15:58:52][__main__	][INFO	] --->   evaluate_original_pointcloud: False
+[2021-11-09 15:58:52][__main__	][INFO	] --->       test_original_pointcloud: False
+[2021-11-09 15:58:52][__main__	][INFO	] --->                        is_cuda: True
+[2021-11-09 15:58:52][__main__	][INFO	] --->                      load_path: 
+[2021-11-09 15:58:52][__main__	][INFO	] --->                       log_step: 50
+[2021-11-09 15:58:52][__main__	][INFO	] --->                      log_level: INFO
+[2021-11-09 15:58:52][__main__	][INFO	] --->                        num_gpu: 1
+[2021-11-09 15:58:52][__main__	][INFO	] --->                           seed: 42
+[2021-11-09 15:58:52][__main__	][INFO	] --->                       run_name: finetune_20_fit_double_0.1_Res16UNet34C
+[2021-11-09 15:58:52][__main__	][INFO	] --->                      unc_round: 20
+[2021-11-09 15:58:52][__main__	][INFO	] --->                 unc_result_dir: /
+[2021-11-09 15:58:52][__main__	][INFO	] --->                          wandb: True
+[2021-11-09 15:58:52][__main__	][INFO	] --->                  train_dataset: ScannetVoxelization2cmDataset
+[2021-11-09 15:58:52][__main__	][INFO	] --->                    val_dataset: ScannetVoxelization2cmtestDataset
+[2021-11-09 15:58:52][__main__	][INFO	] --->                 checkpoint_dir: checkpoints
+[2021-11-09 15:58:52][__main__	][INFO	] --->                     optim_step: 2
+[2021-11-09 15:58:52][__main__	][INFO	] --->                  validate_step: 150
+[2021-11-09 15:58:52][__main__	][INFO	] --->                    train_epoch: 20000
+[2021-11-09 15:58:52][__main__	][INFO	] --->               train_batch_size: 8
+[2021-11-09 15:58:52][__main__	][INFO	] --->                 val_batch_size: 2
+[2021-11-09 15:58:52][__main__	][INFO	] --->                eval_result_dir: /
+[2021-11-09 15:58:52][__main__	][INFO	] --->                  unc_stat_path: /
+[2021-11-09 15:58:52][__main__	][INFO	] --->                     save_epoch: 1
+[2021-11-09 15:58:52][__main__	][INFO	] --->                   ignore_index: 255
+[2021-11-09 15:58:52][__main__	][INFO	] --->                       do_train: True
+[2021-11-09 15:58:52][__main__	][INFO	] --->               do_unc_inference: False
+[2021-11-09 15:58:52][__main__	][INFO	] --->                    do_unc_demo: False
+[2021-11-09 15:58:52][__main__	][INFO	] --->                    unc_dataset: 
+[2021-11-09 15:58:52][__main__	][INFO	] --->           do_verbose_inference: False
+[2021-11-09 15:58:52][__main__	][INFO	] --->                  do_unc_render: False
+[2021-11-09 15:59:14][__main__	][INFO	] Weights loaded from checkpoints/pretrain_20000.pth
+[2021-11-09 15:59:14][__main__	][INFO	] [Errno 2] No such file or directory: 'checkpoints/finetune_20_fit_double_0.1_Res16UNet34C_latest.pth'
+new.py:162: DeprecationWarning: The 'warn' method is deprecated, use 'warning' instead
+  logger.warn(f"checkpoint not found")
+[2021-11-09 15:59:14][__main__	][WARNING	] checkpoint not found
+[2021-11-09 15:59:14][__main__	][INFO	] Model setup done
+[2021-11-09 15:59:14][__main__	][INFO	] 
+Res16UNet34C(
+  (conv0p1s1): MinkowskiConvolution(in=3, out=32, kernel_size=[5, 5, 5], stride=[1, 1, 1], dilation=[1, 1, 1])
+  (bn0): MinkowskiBatchNorm(32, eps=1e-05, momentum=0.02, affine=True, track_running_stats=True)
+  (conv1p1s2): MinkowskiConvolution(in=32, out=32, kernel_size=[2, 2, 2], stride=[2, 2, 2], dilation=[1, 1, 1])
+  (bn1): MinkowskiBatchNorm(32, eps=1e-05, momentum=0.02, affine=True, track_running_stats=True)
+  (block1): Sequential(
+    (0): BasicBlock(
+      (conv1): MinkowskiConvolution(in=32, out=32, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm1): MinkowskiBatchNorm(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): MinkowskiConvolution(in=32, out=32, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm2): MinkowskiBatchNorm(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): MinkowskiReLU()
+    )
+    (1): BasicBlock(
+      (conv1): MinkowskiConvolution(in=32, out=32, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm1): MinkowskiBatchNorm(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): MinkowskiConvolution(in=32, out=32, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm2): MinkowskiBatchNorm(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): MinkowskiReLU()
+    )
+  )
+  (conv2p2s2): MinkowskiConvolution(in=32, out=32, kernel_size=[2, 2, 2], stride=[2, 2, 2], dilation=[1, 1, 1])
+  (bn2): MinkowskiBatchNorm(32, eps=1e-05, momentum=0.02, affine=True, track_running_stats=True)
+  (block2): Sequential(
+    (0): BasicBlock(
+      (conv1): MinkowskiConvolution(in=32, out=64, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm1): MinkowskiBatchNorm(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): MinkowskiConvolution(in=64, out=64, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm2): MinkowskiBatchNorm(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): MinkowskiReLU()
+      (downsample): Sequential(
+        (0): MinkowskiConvolution(in=32, out=64, kernel_size=[1, 1, 1], stride=[1, 1, 1], dilation=[1, 1, 1])
+        (1): MinkowskiBatchNorm(64, eps=1e-05, momentum=0.02, affine=True, track_running_stats=True)
+      )
+    )
+    (1): BasicBlock(
+      (conv1): MinkowskiConvolution(in=64, out=64, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm1): MinkowskiBatchNorm(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): MinkowskiConvolution(in=64, out=64, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm2): MinkowskiBatchNorm(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): MinkowskiReLU()
+    )
+    (2): BasicBlock(
+      (conv1): MinkowskiConvolution(in=64, out=64, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm1): MinkowskiBatchNorm(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): MinkowskiConvolution(in=64, out=64, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm2): MinkowskiBatchNorm(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): MinkowskiReLU()
+    )
+  )
+  (conv3p4s2): MinkowskiConvolution(in=64, out=64, kernel_size=[2, 2, 2], stride=[2, 2, 2], dilation=[1, 1, 1])
+  (bn3): MinkowskiBatchNorm(64, eps=1e-05, momentum=0.02, affine=True, track_running_stats=True)
+  (block3): Sequential(
+    (0): BasicBlock(
+      (conv1): MinkowskiConvolution(in=64, out=128, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm1): MinkowskiBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): MinkowskiConvolution(in=128, out=128, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm2): MinkowskiBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): MinkowskiReLU()
+      (downsample): Sequential(
+        (0): MinkowskiConvolution(in=64, out=128, kernel_size=[1, 1, 1], stride=[1, 1, 1], dilation=[1, 1, 1])
+        (1): MinkowskiBatchNorm(128, eps=1e-05, momentum=0.02, affine=True, track_running_stats=True)
+      )
+    )
+    (1): BasicBlock(
+      (conv1): MinkowskiConvolution(in=128, out=128, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm1): MinkowskiBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): MinkowskiConvolution(in=128, out=128, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm2): MinkowskiBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): MinkowskiReLU()
+    )
+    (2): BasicBlock(
+      (conv1): MinkowskiConvolution(in=128, out=128, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm1): MinkowskiBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): MinkowskiConvolution(in=128, out=128, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm2): MinkowskiBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): MinkowskiReLU()
+    )
+    (3): BasicBlock(
+      (conv1): MinkowskiConvolution(in=128, out=128, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm1): MinkowskiBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): MinkowskiConvolution(in=128, out=128, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm2): MinkowskiBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): MinkowskiReLU()
+    )
+  )
+  (conv4p8s2): MinkowskiConvolution(in=128, out=128, kernel_size=[2, 2, 2], stride=[2, 2, 2], dilation=[1, 1, 1])
+  (bn4): MinkowskiBatchNorm(128, eps=1e-05, momentum=0.02, affine=True, track_running_stats=True)
+  (block4): Sequential(
+    (0): BasicBlock(
+      (conv1): MinkowskiConvolution(in=128, out=256, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm1): MinkowskiBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): MinkowskiConvolution(in=256, out=256, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm2): MinkowskiBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): MinkowskiReLU()
+      (downsample): Sequential(
+        (0): MinkowskiConvolution(in=128, out=256, kernel_size=[1, 1, 1], stride=[1, 1, 1], dilation=[1, 1, 1])
+        (1): MinkowskiBatchNorm(256, eps=1e-05, momentum=0.02, affine=True, track_running_stats=True)
+      )
+    )
+    (1): BasicBlock(
+      (conv1): MinkowskiConvolution(in=256, out=256, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm1): MinkowskiBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): MinkowskiConvolution(in=256, out=256, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm2): MinkowskiBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): MinkowskiReLU()
+    )
+    (2): BasicBlock(
+      (conv1): MinkowskiConvolution(in=256, out=256, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm1): MinkowskiBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): MinkowskiConvolution(in=256, out=256, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm2): MinkowskiBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): MinkowskiReLU()
+    )
+    (3): BasicBlock(
+      (conv1): MinkowskiConvolution(in=256, out=256, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm1): MinkowskiBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): MinkowskiConvolution(in=256, out=256, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm2): MinkowskiBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): MinkowskiReLU()
+    )
+    (4): BasicBlock(
+      (conv1): MinkowskiConvolution(in=256, out=256, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm1): MinkowskiBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): MinkowskiConvolution(in=256, out=256, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm2): MinkowskiBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): MinkowskiReLU()
+    )
+    (5): BasicBlock(
+      (conv1): MinkowskiConvolution(in=256, out=256, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm1): MinkowskiBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): MinkowskiConvolution(in=256, out=256, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm2): MinkowskiBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): MinkowskiReLU()
+    )
+  )
+  (convtr4p16s2): MinkowskiConvolutionTranspose(in=256, out=256, kernel_size=[2, 2, 2], stride=[2, 2, 2], dilation=[1, 1, 1])
+  (bntr4): MinkowskiBatchNorm(256, eps=1e-05, momentum=0.02, affine=True, track_running_stats=True)
+  (block5): Sequential(
+    (0): BasicBlock(
+      (conv1): MinkowskiConvolution(in=384, out=256, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm1): MinkowskiBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): MinkowskiConvolution(in=256, out=256, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm2): MinkowskiBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): MinkowskiReLU()
+      (downsample): Sequential(
+        (0): MinkowskiConvolution(in=384, out=256, kernel_size=[1, 1, 1], stride=[1, 1, 1], dilation=[1, 1, 1])
+        (1): MinkowskiBatchNorm(256, eps=1e-05, momentum=0.02, affine=True, track_running_stats=True)
+      )
+    )
+    (1): BasicBlock(
+      (conv1): MinkowskiConvolution(in=256, out=256, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm1): MinkowskiBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): MinkowskiConvolution(in=256, out=256, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm2): MinkowskiBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): MinkowskiReLU()
+    )
+  )
+  (convtr5p8s2): MinkowskiConvolutionTranspose(in=256, out=128, kernel_size=[2, 2, 2], stride=[2, 2, 2], dilation=[1, 1, 1])
+  (bntr5): MinkowskiBatchNorm(128, eps=1e-05, momentum=0.02, affine=True, track_running_stats=True)
+  (block6): Sequential(
+    (0): BasicBlock(
+      (conv1): MinkowskiConvolution(in=192, out=128, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm1): MinkowskiBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): MinkowskiConvolution(in=128, out=128, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm2): MinkowskiBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): MinkowskiReLU()
+      (downsample): Sequential(
+        (0): MinkowskiConvolution(in=192, out=128, kernel_size=[1, 1, 1], stride=[1, 1, 1], dilation=[1, 1, 1])
+        (1): MinkowskiBatchNorm(128, eps=1e-05, momentum=0.02, affine=True, track_running_stats=True)
+      )
+    )
+    (1): BasicBlock(
+      (conv1): MinkowskiConvolution(in=128, out=128, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm1): MinkowskiBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): MinkowskiConvolution(in=128, out=128, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm2): MinkowskiBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): MinkowskiReLU()
+    )
+  )
+  (convtr6p4s2): MinkowskiConvolutionTranspose(in=128, out=96, kernel_size=[2, 2, 2], stride=[2, 2, 2], dilation=[1, 1, 1])
+  (bntr6): MinkowskiBatchNorm(96, eps=1e-05, momentum=0.02, affine=True, track_running_stats=True)
+  (block7): Sequential(
+    (0): BasicBlock(
+      (conv1): MinkowskiConvolution(in=128, out=96, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm1): MinkowskiBatchNorm(96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): MinkowskiConvolution(in=96, out=96, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm2): MinkowskiBatchNorm(96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): MinkowskiReLU()
+      (downsample): Sequential(
+        (0): MinkowskiConvolution(in=128, out=96, kernel_size=[1, 1, 1], stride=[1, 1, 1], dilation=[1, 1, 1])
+        (1): MinkowskiBatchNorm(96, eps=1e-05, momentum=0.02, affine=True, track_running_stats=True)
+      )
+    )
+    (1): BasicBlock(
+      (conv1): MinkowskiConvolution(in=96, out=96, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm1): MinkowskiBatchNorm(96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): MinkowskiConvolution(in=96, out=96, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm2): MinkowskiBatchNorm(96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): MinkowskiReLU()
+    )
+  )
+  (convtr7p2s2): MinkowskiConvolutionTranspose(in=96, out=96, kernel_size=[2, 2, 2], stride=[2, 2, 2], dilation=[1, 1, 1])
+  (bntr7): MinkowskiBatchNorm(96, eps=1e-05, momentum=0.02, affine=True, track_running_stats=True)
+  (block8): Sequential(
+    (0): BasicBlock(
+      (conv1): MinkowskiConvolution(in=128, out=96, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm1): MinkowskiBatchNorm(96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): MinkowskiConvolution(in=96, out=96, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm2): MinkowskiBatchNorm(96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): MinkowskiReLU()
+      (downsample): Sequential(
+        (0): MinkowskiConvolution(in=128, out=96, kernel_size=[1, 1, 1], stride=[1, 1, 1], dilation=[1, 1, 1])
+        (1): MinkowskiBatchNorm(96, eps=1e-05, momentum=0.02, affine=True, track_running_stats=True)
+      )
+    )
+    (1): BasicBlock(
+      (conv1): MinkowskiConvolution(in=96, out=96, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm1): MinkowskiBatchNorm(96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): MinkowskiConvolution(in=96, out=96, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm2): MinkowskiBatchNorm(96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): MinkowskiReLU()
+    )
+  )
+  (final): MinkowskiConvolution(in=96, out=20, kernel_size=[1, 1, 1], stride=[1, 1, 1], dilation=[1, 1, 1])
+  (relu): MinkowskiReLU()
+)
+wandb: Currently logged in as: tb5zhh (use `wandb login --relogin` to force relogin)
+wandb: wandb version 0.12.6 is available!  To upgrade, please run:
+wandb:  $ pip install wandb --upgrade
+wandb: Tracking run with wandb version 0.12.4
+wandb: Syncing run swift-resonance-276
+wandb:  View project at https://wandb.ai/tb5zhh/3dsp
+wandb:  View run at https://wandb.ai/tb5zhh/3dsp/runs/2jk5zane
+wandb: Run data is saved locally in /home/aidrive/tb5zhh/3DScanSeg/wandb/run-20211109_155915-2jk5zane
+wandb: Run `wandb offline` to turn off syncing.
+
+[34m[1mwandb[0m: [33mWARNING[0m Calling run.save without any arguments is deprecated.Changes to attributes are automatically persisted.
+[2021-11-09 15:59:19][root	][INFO	] Loading ScannetVoxelization2cmDataset: scannetv2_train.txt
+[2021-11-09 15:59:19][root	][INFO	] Loading ScannetVoxelization2cmtestDataset: scannetv2_val.txt
+[2021-11-09 15:59:19][__main__	][INFO	] Dataloader setup done
+[2021-11-09 15:59:19][__main__	][INFO	] My rank : 0 / 1
+[2021-11-09 15:59:19][__main__	][INFO	] Start training
+[2021-11-09 15:59:33][__main__	][INFO	] TRAIN at global step #1 Epoch #1 Step #2 / 151: loss:3.3693, precision: 1.6810
+[2021-11-09 15:59:41][__main__	][INFO	] TRAIN at global step #2 Epoch #1 Step #4 / 151: loss:3.1744, precision: 2.6041
+[2021-11-09 15:59:47][__main__	][INFO	] TRAIN at global step #3 Epoch #1 Step #6 / 151: loss:2.8081, precision: 15.9802
+[2021-11-09 15:59:55][__main__	][INFO	] TRAIN at global step #4 Epoch #1 Step #8 / 151: loss:2.6497, precision: 15.8800
+[2021-11-09 16:00:03][__main__	][INFO	] TRAIN at global step #5 Epoch #1 Step #10 / 151: loss:2.4239, precision: 20.8664
+[2021-11-09 16:00:11][__main__	][INFO	] TRAIN at global step #6 Epoch #1 Step #12 / 151: loss:2.5896, precision: 16.7511
+[2021-11-09 16:00:18][__main__	][INFO	] TRAIN at global step #7 Epoch #1 Step #14 / 151: loss:2.0027, precision: 33.9805
+[2021-11-09 16:00:25][__main__	][INFO	] TRAIN at global step #8 Epoch #1 Step #16 / 151: loss:2.3364, precision: 22.6552
+[2021-11-09 16:00:32][__main__	][INFO	] TRAIN at global step #9 Epoch #1 Step #18 / 151: loss:2.1361, precision: 27.9423
+[2021-11-09 16:00:39][__main__	][INFO	] TRAIN at global step #10 Epoch #1 Step #20 / 151: loss:2.3913, precision: 21.7174
+[2021-11-09 16:00:45][__main__	][INFO	] TRAIN at global step #11 Epoch #1 Step #22 / 151: loss:2.2354, precision: 28.3816
+[2021-11-09 16:00:52][__main__	][INFO	] TRAIN at global step #12 Epoch #1 Step #24 / 151: loss:2.1802, precision: 28.0930
+[2021-11-09 16:00:58][__main__	][INFO	] TRAIN at global step #13 Epoch #1 Step #26 / 151: loss:2.1543, precision: 25.6219
+[2021-11-09 16:01:04][__main__	][INFO	] TRAIN at global step #14 Epoch #1 Step #28 / 151: loss:2.1835, precision: 26.3056
+[2021-11-09 16:01:11][__main__	][INFO	] TRAIN at global step #15 Epoch #1 Step #30 / 151: loss:2.1920, precision: 23.3950
+[2021-11-09 16:01:17][__main__	][INFO	] TRAIN at global step #16 Epoch #1 Step #32 / 151: loss:2.1287, precision: 30.4049
+[2021-11-09 16:01:23][__main__	][INFO	] TRAIN at global step #17 Epoch #1 Step #34 / 151: loss:2.3574, precision: 17.8866
+[2021-11-09 16:01:31][__main__	][INFO	] TRAIN at global step #18 Epoch #1 Step #36 / 151: loss:1.9193, precision: 31.8590
+[2021-11-09 16:01:38][__main__	][INFO	] TRAIN at global step #19 Epoch #1 Step #38 / 151: loss:2.1085, precision: 22.6881
+[2021-11-09 16:01:45][__main__	][INFO	] TRAIN at global step #20 Epoch #1 Step #40 / 151: loss:2.0361, precision: 29.3501
+[2021-11-09 16:01:53][__main__	][INFO	] TRAIN at global step #21 Epoch #1 Step #42 / 151: loss:2.1764, precision: 23.9338
+[2021-11-09 16:01:59][__main__	][INFO	] TRAIN at global step #22 Epoch #1 Step #44 / 151: loss:2.0048, precision: 28.7350
+[2021-11-09 16:02:06][__main__	][INFO	] TRAIN at global step #23 Epoch #1 Step #46 / 151: loss:2.2704, precision: 21.7401
+[2021-11-09 16:02:13][__main__	][INFO	] TRAIN at global step #24 Epoch #1 Step #48 / 151: loss:2.0809, precision: 28.7942
+[2021-11-09 16:02:21][__main__	][INFO	] TRAIN at global step #25 Epoch #1 Step #50 / 151: loss:1.9903, precision: 30.3944
+[2021-11-09 16:02:26][__main__	][INFO	] TRAIN at global step #26 Epoch #1 Step #52 / 151: loss:1.9417, precision: 31.6958
+[2021-11-09 16:02:33][__main__	][INFO	] TRAIN at global step #27 Epoch #1 Step #54 / 151: loss:2.0492, precision: 29.7842
+[2021-11-09 16:02:41][__main__	][INFO	] TRAIN at global step #28 Epoch #1 Step #56 / 151: loss:2.0090, precision: 25.0134
+[2021-11-09 16:02:48][__main__	][INFO	] TRAIN at global step #29 Epoch #1 Step #58 / 151: loss:2.1300, precision: 23.8198
+[2021-11-09 16:02:54][__main__	][INFO	] TRAIN at global step #30 Epoch #1 Step #60 / 151: loss:1.7860, precision: 31.7081
+[2021-11-09 16:03:00][__main__	][INFO	] TRAIN at global step #31 Epoch #1 Step #62 / 151: loss:1.8911, precision: 32.5243
+[2021-11-09 16:03:07][__main__	][INFO	] TRAIN at global step #32 Epoch #1 Step #64 / 151: loss:2.0012, precision: 24.7458
+[2021-11-09 16:03:14][__main__	][INFO	] TRAIN at global step #33 Epoch #1 Step #66 / 151: loss:1.7559, precision: 39.2183
+[2021-11-09 16:03:20][__main__	][INFO	] TRAIN at global step #34 Epoch #1 Step #68 / 151: loss:2.2415, precision: 20.3938
+[2021-11-09 16:03:26][__main__	][INFO	] TRAIN at global step #35 Epoch #1 Step #70 / 151: loss:1.7845, precision: 35.8144
+[2021-11-09 16:03:33][__main__	][INFO	] TRAIN at global step #36 Epoch #1 Step #72 / 151: loss:2.0795, precision: 25.7445
+[2021-11-09 16:03:40][__main__	][INFO	] TRAIN at global step #37 Epoch #1 Step #74 / 151: loss:2.1646, precision: 20.0537
+[2021-11-09 16:03:47][__main__	][INFO	] TRAIN at global step #38 Epoch #1 Step #76 / 151: loss:1.9514, precision: 32.4907
+[2021-11-09 16:03:54][__main__	][INFO	] TRAIN at global step #39 Epoch #1 Step #78 / 151: loss:2.0581, precision: 28.4426
+[2021-11-09 16:04:02][__main__	][INFO	] TRAIN at global step #40 Epoch #1 Step #80 / 151: loss:2.1198, precision: 26.2266
+[2021-11-09 16:04:07][__main__	][INFO	] TRAIN at global step #41 Epoch #1 Step #82 / 151: loss:2.2387, precision: 20.0382
+[2021-11-09 16:04:13][__main__	][INFO	] TRAIN at global step #42 Epoch #1 Step #84 / 151: loss:2.0527, precision: 30.3417
+[2021-11-09 16:04:21][__main__	][INFO	] TRAIN at global step #43 Epoch #1 Step #86 / 151: loss:1.9924, precision: 32.3862
+[2021-11-09 16:04:29][__main__	][INFO	] TRAIN at global step #44 Epoch #1 Step #88 / 151: loss:1.9748, precision: 26.5187
+[2021-11-09 16:04:34][__main__	][INFO	] TRAIN at global step #45 Epoch #1 Step #90 / 151: loss:2.0323, precision: 27.6990
+[2021-11-09 16:04:43][__main__	][INFO	] TRAIN at global step #46 Epoch #1 Step #92 / 151: loss:2.0552, precision: 25.4617
+[2021-11-09 16:04:51][__main__	][INFO	] TRAIN at global step #47 Epoch #1 Step #94 / 151: loss:1.9781, precision: 28.6213
+[2021-11-09 16:04:58][__main__	][INFO	] TRAIN at global step #48 Epoch #1 Step #96 / 151: loss:1.9488, precision: 31.1783
+[2021-11-09 16:05:05][__main__	][INFO	] TRAIN at global step #49 Epoch #1 Step #98 / 151: loss:1.9072, precision: 31.2890
+[2021-11-09 16:05:13][__main__	][INFO	] TRAIN at global step #50 Epoch #1 Step #100 / 151: loss:1.8803, precision: 31.4147
+[2021-11-09 16:05:18][__main__	][INFO	] TRAIN at global step #51 Epoch #1 Step #102 / 151: loss:1.9265, precision: 28.8489
+[2021-11-09 16:05:25][__main__	][INFO	] TRAIN at global step #52 Epoch #1 Step #104 / 151: loss:2.0879, precision: 24.9951
+[2021-11-09 16:05:30][__main__	][INFO	] TRAIN at global step #53 Epoch #1 Step #106 / 151: loss:1.9976, precision: 30.7708
+[2021-11-09 16:05:37][__main__	][INFO	] TRAIN at global step #54 Epoch #1 Step #108 / 151: loss:1.8331, precision: 32.1566
+[2021-11-09 16:05:43][__main__	][INFO	] TRAIN at global step #55 Epoch #1 Step #110 / 151: loss:2.1130, precision: 24.8662
+[2021-11-09 16:05:49][__main__	][INFO	] TRAIN at global step #56 Epoch #1 Step #112 / 151: loss:2.1486, precision: 20.6493
+[2021-11-09 16:05:55][__main__	][INFO	] TRAIN at global step #57 Epoch #1 Step #114 / 151: loss:1.9556, precision: 30.7698
+[2021-11-09 16:06:01][__main__	][INFO	] TRAIN at global step #58 Epoch #1 Step #116 / 151: loss:1.9662, precision: 29.1286
+[2021-11-09 16:06:08][__main__	][INFO	] TRAIN at global step #59 Epoch #1 Step #118 / 151: loss:1.9628, precision: 27.9353
+[2021-11-09 16:06:14][__main__	][INFO	] TRAIN at global step #60 Epoch #1 Step #120 / 151: loss:1.9977, precision: 28.3792
+[2021-11-09 16:06:21][__main__	][INFO	] TRAIN at global step #61 Epoch #1 Step #122 / 151: loss:1.8921, precision: 28.5025
+[2021-11-09 16:06:28][__main__	][INFO	] TRAIN at global step #62 Epoch #1 Step #124 / 151: loss:2.0383, precision: 21.3433
+[2021-11-09 16:06:34][__main__	][INFO	] TRAIN at global step #63 Epoch #1 Step #126 / 151: loss:1.8865, precision: 28.8703
+[2021-11-09 16:06:39][__main__	][INFO	] TRAIN at global step #64 Epoch #1 Step #128 / 151: loss:1.9466, precision: 32.4407
+[2021-11-09 16:06:46][__main__	][INFO	] TRAIN at global step #65 Epoch #1 Step #130 / 151: loss:1.9814, precision: 28.4812
+[2021-11-09 16:06:51][__main__	][INFO	] TRAIN at global step #66 Epoch #1 Step #132 / 151: loss:2.1297, precision: 23.3302
+[2021-11-09 16:06:57][__main__	][INFO	] TRAIN at global step #67 Epoch #1 Step #134 / 151: loss:2.0417, precision: 24.4875
+[2021-11-09 16:07:03][__main__	][INFO	] TRAIN at global step #68 Epoch #1 Step #136 / 151: loss:2.2588, precision: 18.7169
+[2021-11-09 16:07:09][__main__	][INFO	] TRAIN at global step #69 Epoch #1 Step #138 / 151: loss:2.0295, precision: 27.5124
+[2021-11-09 16:07:15][__main__	][INFO	] TRAIN at global step #70 Epoch #1 Step #140 / 151: loss:2.0707, precision: 22.8557
+[2021-11-09 16:07:23][__main__	][INFO	] TRAIN at global step #71 Epoch #1 Step #142 / 151: loss:2.0457, precision: 24.6252
+[2021-11-09 16:07:32][__main__	][INFO	] TRAIN at global step #72 Epoch #1 Step #144 / 151: loss:1.9925, precision: 26.1022
+[2021-11-09 16:07:38][__main__	][INFO	] TRAIN at global step #73 Epoch #1 Step #146 / 151: loss:1.8080, precision: 37.6754
+[2021-11-09 16:07:43][__main__	][INFO	] TRAIN at global step #74 Epoch #1 Step #148 / 151: loss:1.7937, precision: 35.8417
+[2021-11-09 16:07:48][__main__	][INFO	] TRAIN at global step #75 Epoch #1 Step #150 / 151: loss:1.9344, precision: 31.3499
+[2021-11-09 16:07:51][__main__	][INFO	] Checkpoint at epoch #0 saved
+[2021-11-09 16:08:01][__main__	][INFO	] TRAIN at global step #76 Epoch #2 Step #1 / 151: loss:1.8961, precision: 29.3213
+[2021-11-09 16:08:07][__main__	][INFO	] TRAIN at global step #77 Epoch #2 Step #3 / 151: loss:2.0034, precision: 31.2208
+[2021-11-09 16:08:15][__main__	][INFO	] TRAIN at global step #78 Epoch #2 Step #5 / 151: loss:1.9348, precision: 27.2484
+[2021-11-09 16:08:22][__main__	][INFO	] TRAIN at global step #79 Epoch #2 Step #7 / 151: loss:1.9992, precision: 27.6186
+[2021-11-09 16:08:28][__main__	][INFO	] TRAIN at global step #80 Epoch #2 Step #9 / 151: loss:1.7218, precision: 34.6235
+[2021-11-09 16:08:36][__main__	][INFO	] TRAIN at global step #81 Epoch #2 Step #11 / 151: loss:1.7554, precision: 34.4121
+[2021-11-09 16:08:43][__main__	][INFO	] TRAIN at global step #82 Epoch #2 Step #13 / 151: loss:1.8923, precision: 28.7434
+[2021-11-09 16:08:49][__main__	][INFO	] TRAIN at global step #83 Epoch #2 Step #15 / 151: loss:1.7560, precision: 29.3405
+[2021-11-09 16:08:56][__main__	][INFO	] TRAIN at global step #84 Epoch #2 Step #17 / 151: loss:2.0681, precision: 25.9163
+[2021-11-09 16:09:02][__main__	][INFO	] TRAIN at global step #85 Epoch #2 Step #19 / 151: loss:1.8900, precision: 32.7436
+[2021-11-09 16:09:08][__main__	][INFO	] TRAIN at global step #86 Epoch #2 Step #21 / 151: loss:2.0884, precision: 24.5374
+[2021-11-09 16:09:14][__main__	][INFO	] TRAIN at global step #87 Epoch #2 Step #23 / 151: loss:1.9302, precision: 26.1176
+[2021-11-09 16:09:22][__main__	][INFO	] TRAIN at global step #88 Epoch #2 Step #25 / 151: loss:1.9532, precision: 29.4033
+[2021-11-09 16:09:29][__main__	][INFO	] TRAIN at global step #89 Epoch #2 Step #27 / 151: loss:1.8240, precision: 34.4670
+[2021-11-09 16:09:35][__main__	][INFO	] TRAIN at global step #90 Epoch #2 Step #29 / 151: loss:1.6799, precision: 40.4801
+[2021-11-09 16:09:42][__main__	][INFO	] TRAIN at global step #91 Epoch #2 Step #31 / 151: loss:1.9902, precision: 26.4796
+[2021-11-09 16:09:48][__main__	][INFO	] TRAIN at global step #92 Epoch #2 Step #33 / 151: loss:1.9674, precision: 27.6001
+[2021-11-09 16:09:54][__main__	][INFO	] TRAIN at global step #93 Epoch #2 Step #35 / 151: loss:1.9491, precision: 27.8210
+[2021-11-09 16:10:01][__main__	][INFO	] TRAIN at global step #94 Epoch #2 Step #37 / 151: loss:1.9730, precision: 29.0115
+[2021-11-09 16:10:08][__main__	][INFO	] TRAIN at global step #95 Epoch #2 Step #39 / 151: loss:1.7789, precision: 32.7124
+[2021-11-09 16:10:13][__main__	][INFO	] TRAIN at global step #96 Epoch #2 Step #41 / 151: loss:2.1253, precision: 26.5155
+[2021-11-09 16:10:18][__main__	][INFO	] TRAIN at global step #97 Epoch #2 Step #43 / 151: loss:1.8823, precision: 36.5869
+[2021-11-09 16:10:24][__main__	][INFO	] TRAIN at global step #98 Epoch #2 Step #45 / 151: loss:1.9387, precision: 30.2599
+[2021-11-09 16:10:31][__main__	][INFO	] TRAIN at global step #99 Epoch #2 Step #47 / 151: loss:2.2082, precision: 21.1546
+[2021-11-09 16:10:37][__main__	][INFO	] TRAIN at global step #100 Epoch #2 Step #49 / 151: loss:1.9522, precision: 28.5003
+[2021-11-09 16:10:45][__main__	][INFO	] TRAIN at global step #101 Epoch #2 Step #51 / 151: loss:1.9301, precision: 26.0396
+[2021-11-09 16:10:51][__main__	][INFO	] TRAIN at global step #102 Epoch #2 Step #53 / 151: loss:1.9665, precision: 31.7787
+[2021-11-09 16:10:57][__main__	][INFO	] TRAIN at global step #103 Epoch #2 Step #55 / 151: loss:2.0060, precision: 26.3657
+[2021-11-09 16:11:05][__main__	][INFO	] TRAIN at global step #104 Epoch #2 Step #57 / 151: loss:1.8754, precision: 27.3098
+[2021-11-09 16:11:13][__main__	][INFO	] TRAIN at global step #105 Epoch #2 Step #59 / 151: loss:1.8577, precision: 29.6044
+[2021-11-09 16:11:20][__main__	][INFO	] TRAIN at global step #106 Epoch #2 Step #61 / 151: loss:1.9698, precision: 22.2787
+[2021-11-09 16:11:27][__main__	][INFO	] TRAIN at global step #107 Epoch #2 Step #63 / 151: loss:1.8660, precision: 33.5364
+[2021-11-09 16:11:34][__main__	][INFO	] TRAIN at global step #108 Epoch #2 Step #65 / 151: loss:1.9258, precision: 24.4762
+[2021-11-09 16:11:40][__main__	][INFO	] TRAIN at global step #109 Epoch #2 Step #67 / 151: loss:1.8758, precision: 33.4326
+[2021-11-09 16:11:47][__main__	][INFO	] TRAIN at global step #110 Epoch #2 Step #69 / 151: loss:1.9477, precision: 27.8835
+[2021-11-09 16:11:54][__main__	][INFO	] TRAIN at global step #111 Epoch #2 Step #71 / 151: loss:1.6725, precision: 35.7174
+[2021-11-09 16:12:01][__main__	][INFO	] TRAIN at global step #112 Epoch #2 Step #73 / 151: loss:2.0327, precision: 25.8653
+[2021-11-09 16:12:06][__main__	][INFO	] TRAIN at global step #113 Epoch #2 Step #75 / 151: loss:1.7568, precision: 36.0955
+[2021-11-09 16:12:11][__main__	][INFO	] TRAIN at global step #114 Epoch #2 Step #77 / 151: loss:1.9867, precision: 22.8931
+[2021-11-09 16:12:19][__main__	][INFO	] TRAIN at global step #115 Epoch #2 Step #79 / 151: loss:1.9649, precision: 30.2525
+[2021-11-09 16:12:26][__main__	][INFO	] TRAIN at global step #116 Epoch #2 Step #81 / 151: loss:1.9946, precision: 28.2679
+[2021-11-09 16:12:32][__main__	][INFO	] TRAIN at global step #117 Epoch #2 Step #83 / 151: loss:1.9839, precision: 26.5284
+[2021-11-09 16:12:38][__main__	][INFO	] TRAIN at global step #118 Epoch #2 Step #85 / 151: loss:1.9544, precision: 25.8331
+[2021-11-09 16:12:47][__main__	][INFO	] TRAIN at global step #119 Epoch #2 Step #87 / 151: loss:1.6522, precision: 39.9709
+[2021-11-09 16:12:56][__main__	][INFO	] TRAIN at global step #120 Epoch #2 Step #89 / 151: loss:1.9122, precision: 29.8959
+[2021-11-09 16:13:03][__main__	][INFO	] TRAIN at global step #121 Epoch #2 Step #91 / 151: loss:1.9160, precision: 29.4931
+[2021-11-09 16:13:09][__main__	][INFO	] TRAIN at global step #122 Epoch #2 Step #93 / 151: loss:1.8417, precision: 34.3221
+[2021-11-09 16:13:15][__main__	][INFO	] TRAIN at global step #123 Epoch #2 Step #95 / 151: loss:1.5408, precision: 41.6291
+[2021-11-09 16:13:22][__main__	][INFO	] TRAIN at global step #124 Epoch #2 Step #97 / 151: loss:1.7462, precision: 29.4588
+[2021-11-09 16:13:29][__main__	][INFO	] TRAIN at global step #125 Epoch #2 Step #99 / 151: loss:1.8561, precision: 28.3300
+[2021-11-09 16:13:35][__main__	][INFO	] TRAIN at global step #126 Epoch #2 Step #101 / 151: loss:1.9247, precision: 26.7549
+[2021-11-09 16:13:43][__main__	][INFO	] TRAIN at global step #127 Epoch #2 Step #103 / 151: loss:2.0728, precision: 23.8275
+[2021-11-09 16:13:51][__main__	][INFO	] TRAIN at global step #128 Epoch #2 Step #105 / 151: loss:2.0928, precision: 22.8941
+[2021-11-09 16:13:57][__main__	][INFO	] TRAIN at global step #129 Epoch #2 Step #107 / 151: loss:1.9617, precision: 28.9725
+[2021-11-09 16:14:04][__main__	][INFO	] TRAIN at global step #130 Epoch #2 Step #109 / 151: loss:1.8084, precision: 32.6331
+[2021-11-09 16:14:11][__main__	][INFO	] TRAIN at global step #131 Epoch #2 Step #111 / 151: loss:1.7564, precision: 32.7757
+[2021-11-09 16:14:17][__main__	][INFO	] TRAIN at global step #132 Epoch #2 Step #113 / 151: loss:1.9603, precision: 25.8961
+[2021-11-09 16:14:24][__main__	][INFO	] TRAIN at global step #133 Epoch #2 Step #115 / 151: loss:1.8208, precision: 34.3901
+[2021-11-09 16:14:30][__main__	][INFO	] TRAIN at global step #134 Epoch #2 Step #117 / 151: loss:1.7225, precision: 32.1930
+[2021-11-09 16:14:36][__main__	][INFO	] TRAIN at global step #135 Epoch #2 Step #119 / 151: loss:1.7555, precision: 35.2904
+[2021-11-09 16:14:42][__main__	][INFO	] TRAIN at global step #136 Epoch #2 Step #121 / 151: loss:1.8616, precision: 24.3792
+[2021-11-09 16:14:49][__main__	][INFO	] TRAIN at global step #137 Epoch #2 Step #123 / 151: loss:1.6646, precision: 38.3444
+[2021-11-09 16:14:56][__main__	][INFO	] TRAIN at global step #138 Epoch #2 Step #125 / 151: loss:1.7418, precision: 30.5967
+[2021-11-09 16:15:04][__main__	][INFO	] TRAIN at global step #139 Epoch #2 Step #127 / 151: loss:1.7689, precision: 30.6347
+[2021-11-09 16:15:10][__main__	][INFO	] TRAIN at global step #140 Epoch #2 Step #129 / 151: loss:1.9940, precision: 29.3174
+[2021-11-09 16:15:18][__main__	][INFO	] TRAIN at global step #141 Epoch #2 Step #131 / 151: loss:1.7244, precision: 25.6676
+[2021-11-09 16:15:24][__main__	][INFO	] TRAIN at global step #142 Epoch #2 Step #133 / 151: loss:1.7198, precision: 33.9080
+[2021-11-09 16:15:31][__main__	][INFO	] TRAIN at global step #143 Epoch #2 Step #135 / 151: loss:1.8348, precision: 28.7159
+[2021-11-09 16:15:37][__main__	][INFO	] TRAIN at global step #144 Epoch #2 Step #137 / 151: loss:1.8305, precision: 29.7197
+[2021-11-09 16:15:44][__main__	][INFO	] TRAIN at global step #145 Epoch #2 Step #139 / 151: loss:1.7214, precision: 31.4555
+[2021-11-09 16:15:51][__main__	][INFO	] TRAIN at global step #146 Epoch #2 Step #141 / 151: loss:1.6590, precision: 32.8607
+[2021-11-09 16:15:56][__main__	][INFO	] TRAIN at global step #147 Epoch #2 Step #143 / 151: loss:1.6313, precision: 34.2202
+[2021-11-09 16:16:03][__main__	][INFO	] TRAIN at global step #148 Epoch #2 Step #145 / 151: loss:1.8005, precision: 32.9513
+[2021-11-09 16:16:11][__main__	][INFO	] TRAIN at global step #149 Epoch #2 Step #147 / 151: loss:1.5161, precision: 38.6831
+[2021-11-09 16:16:18][__main__	][INFO	] TRAIN at global step #150 Epoch #2 Step #149 / 151: loss:1.5961, precision: 36.9618
+[2021-11-09 16:16:21][__main__	][INFO	] ---> inference #0 of 156 loss: 1.5289 iou: 0.1067
+[2021-11-09 16:16:22][__main__	][INFO	] ---> inference #1 of 156 loss: 1.2776 iou: 0.1057
+[2021-11-09 16:16:22][__main__	][INFO	] ---> inference #2 of 156 loss: 1.4247 iou: 0.0806
+[2021-11-09 16:16:22][__main__	][INFO	] ---> inference #3 of 156 loss: 1.6309 iou: 0.0734
+[2021-11-09 16:16:23][__main__	][INFO	] ---> inference #4 of 156 loss: 1.2789 iou: 0.1237
+[2021-11-09 16:16:23][__main__	][INFO	] ---> inference #5 of 156 loss: 1.5498 iou: 0.1129
+[2021-11-09 16:16:24][__main__	][INFO	] ---> inference #6 of 156 loss: 1.9679 iou: 0.0679
+[2021-11-09 16:16:24][__main__	][INFO	] ---> inference #7 of 156 loss: 2.7290 iou: 0.0793
+[2021-11-09 16:16:24][__main__	][INFO	] ---> inference #8 of 156 loss: 2.4794 iou: 0.0775
+[2021-11-09 16:16:25][__main__	][INFO	] ---> inference #9 of 156 loss: 1.7017 iou: 0.0779
+[2021-11-09 16:16:25][__main__	][INFO	] ---> inference #10 of 156 loss: 1.6390 iou: 0.1096
+[2021-11-09 16:16:25][__main__	][INFO	] ---> inference #11 of 156 loss: 1.5242 iou: 0.0760
+[2021-11-09 16:16:26][__main__	][INFO	] ---> inference #12 of 156 loss: 1.2705 iou: 0.1124
+[2021-11-09 16:16:26][__main__	][INFO	] ---> inference #13 of 156 loss: 1.4607 iou: 0.0808
+[2021-11-09 16:16:26][__main__	][INFO	] ---> inference #14 of 156 loss: 1.1068 iou: 0.0937
+[2021-11-09 16:16:27][__main__	][INFO	] ---> inference #15 of 156 loss: 0.9748 iou: 0.1466
+[2021-11-09 16:16:27][__main__	][INFO	] ---> inference #16 of 156 loss: 1.6084 iou: 0.1159
+[2021-11-09 16:16:27][__main__	][INFO	] ---> inference #17 of 156 loss: 1.4230 iou: 0.0969
+[2021-11-09 16:16:27][__main__	][INFO	] ---> inference #18 of 156 loss: 1.5466 iou: 0.1004
+[2021-11-09 16:16:28][__main__	][INFO	] ---> inference #19 of 156 loss: 1.8761 iou: 0.0669
+[2021-11-09 16:16:28][__main__	][INFO	] ---> inference #20 of 156 loss: 1.5066 iou: 0.0885
+[2021-11-09 16:16:28][__main__	][INFO	] ---> inference #21 of 156 loss: 1.5022 iou: 0.0925
+[2021-11-09 16:16:29][__main__	][INFO	] ---> inference #22 of 156 loss: 1.4401 iou: 0.1050
+[2021-11-09 16:16:29][__main__	][INFO	] ---> inference #23 of 156 loss: 1.1851 iou: 0.0965
+[2021-11-09 16:16:29][__main__	][INFO	] ---> inference #24 of 156 loss: 1.7474 iou: 0.0931
+[2021-11-09 16:16:29][__main__	][INFO	] ---> inference #25 of 156 loss: 1.9668 iou: 0.0719
+[2021-11-09 16:16:30][__main__	][INFO	] ---> inference #26 of 156 loss: 2.0105 iou: 0.0566
+[2021-11-09 16:16:30][__main__	][INFO	] ---> inference #27 of 156 loss: 2.0347 iou: 0.0596
+[2021-11-09 16:16:30][__main__	][INFO	] ---> inference #28 of 156 loss: 1.3038 iou: 0.1272
+[2021-11-09 16:16:31][__main__	][INFO	] ---> inference #29 of 156 loss: 0.9378 iou: 0.0960
+[2021-11-09 16:16:31][__main__	][INFO	] ---> inference #30 of 156 loss: 1.4530 iou: 0.0900
+[2021-11-09 16:16:31][__main__	][INFO	] ---> inference #31 of 156 loss: 1.2515 iou: 0.1226
+[2021-11-09 16:16:32][__main__	][INFO	] ---> inference #32 of 156 loss: 1.6524 iou: 0.0805
+[2021-11-09 16:16:32][__main__	][INFO	] ---> inference #33 of 156 loss: 1.8855 iou: 0.0691
+[2021-11-09 16:16:33][__main__	][INFO	] ---> inference #34 of 156 loss: 1.7399 iou: 0.0729
+[2021-11-09 16:16:33][__main__	][INFO	] ---> inference #35 of 156 loss: 1.7802 iou: 0.0779
+[2021-11-09 16:16:34][__main__	][INFO	] ---> inference #36 of 156 loss: 1.9502 iou: 0.0726
+[2021-11-09 16:16:34][__main__	][INFO	] ---> inference #37 of 156 loss: 1.9565 iou: 0.0819
+[2021-11-09 16:16:35][__main__	][INFO	] ---> inference #38 of 156 loss: 2.0493 iou: 0.0815
+[2021-11-09 16:16:35][__main__	][INFO	] ---> inference #39 of 156 loss: 1.2241 iou: 0.1200
+[2021-11-09 16:16:35][__main__	][INFO	] ---> inference #40 of 156 loss: 1.5927 iou: 0.0843
+[2021-11-09 16:16:36][__main__	][INFO	] ---> inference #41 of 156 loss: 2.3192 iou: 0.0652
+[2021-11-09 16:16:36][__main__	][INFO	] ---> inference #42 of 156 loss: 1.2170 iou: 0.1041
+[2021-11-09 16:16:36][__main__	][INFO	] ---> inference #43 of 156 loss: 1.4684 iou: 0.0821
+[2021-11-09 16:16:36][__main__	][INFO	] ---> inference #44 of 156 loss: 1.5957 iou: 0.0665
+[2021-11-09 16:16:37][__main__	][INFO	] ---> inference #45 of 156 loss: 1.9278 iou: 0.0780
+[2021-11-09 16:16:37][__main__	][INFO	] ---> inference #46 of 156 loss: 1.4302 iou: 0.0781
+[2021-11-09 16:16:38][__main__	][INFO	] ---> inference #47 of 156 loss: 1.5950 iou: 0.0896
+[2021-11-09 16:16:38][__main__	][INFO	] ---> inference #48 of 156 loss: 1.2598 iou: 0.0889
+[2021-11-09 16:16:39][__main__	][INFO	] ---> inference #49 of 156 loss: 1.7289 iou: 0.0754
+[2021-11-09 16:16:39][__main__	][INFO	] ---> inference #50 of 156 loss: 1.8303 iou: 0.0779
+[2021-11-09 16:16:40][__main__	][INFO	] ---> inference #51 of 156 loss: 1.2395 iou: 0.0697
+[2021-11-09 16:16:40][__main__	][INFO	] ---> inference #52 of 156 loss: 1.2396 iou: 0.0780
+[2021-11-09 16:16:40][__main__	][INFO	] ---> inference #53 of 156 loss: 1.5132 iou: 0.0768
+[2021-11-09 16:16:40][__main__	][INFO	] ---> inference #54 of 156 loss: 1.1418 iou: 0.1053
+[2021-11-09 16:16:41][__main__	][INFO	] ---> inference #55 of 156 loss: 1.9402 iou: 0.0777
+[2021-11-09 16:16:41][__main__	][INFO	] ---> inference #56 of 156 loss: 1.9167 iou: 0.0712
+[2021-11-09 16:16:41][__main__	][INFO	] ---> inference #57 of 156 loss: 1.6368 iou: 0.1022
+[2021-11-09 16:16:42][__main__	][INFO	] ---> inference #58 of 156 loss: 0.7749 iou: 0.1253
+[2021-11-09 16:16:42][__main__	][INFO	] ---> inference #59 of 156 loss: 1.3758 iou: 0.0887
+[2021-11-09 16:16:42][__main__	][INFO	] ---> inference #60 of 156 loss: 1.4124 iou: 0.0995
+[2021-11-09 16:16:42][__main__	][INFO	] ---> inference #61 of 156 loss: 1.3460 iou: 0.1079
+[2021-11-09 16:16:43][__main__	][INFO	] ---> inference #62 of 156 loss: 1.4973 iou: 0.0957
+[2021-11-09 16:16:43][__main__	][INFO	] ---> inference #63 of 156 loss: 1.7504 iou: 0.0770
+[2021-11-09 16:16:43][__main__	][INFO	] ---> inference #64 of 156 loss: 1.6152 iou: 0.0843
+[2021-11-09 16:16:44][__main__	][INFO	] ---> inference #65 of 156 loss: 1.5703 iou: 0.0873
+[2021-11-09 16:16:44][__main__	][INFO	] ---> inference #66 of 156 loss: 2.3147 iou: 0.0669
+[2021-11-09 16:16:44][__main__	][INFO	] ---> inference #67 of 156 loss: 1.7685 iou: 0.0744
+[2021-11-09 16:16:44][__main__	][INFO	] ---> inference #68 of 156 loss: 1.4783 iou: 0.1035
+[2021-11-09 16:16:44][__main__	][INFO	] ---> inference #69 of 156 loss: 0.9114 iou: 0.0674
+[2021-11-09 16:16:45][__main__	][INFO	] ---> inference #70 of 156 loss: 1.2482 iou: 0.0857
+[2021-11-09 16:16:45][__main__	][INFO	] ---> inference #71 of 156 loss: 1.3282 iou: 0.0853
+[2021-11-09 16:16:45][__main__	][INFO	] ---> inference #72 of 156 loss: 1.2306 iou: 0.0946
+[2021-11-09 16:16:46][__main__	][INFO	] ---> inference #73 of 156 loss: 0.9555 iou: 0.1383
+[2021-11-09 16:16:46][__main__	][INFO	] ---> inference #74 of 156 loss: 1.1579 iou: 0.0880
+[2021-11-09 16:16:46][__main__	][INFO	] ---> inference #75 of 156 loss: 2.0945 iou: 0.0712
+[2021-11-09 16:16:47][__main__	][INFO	] ---> inference #76 of 156 loss: 1.9428 iou: 0.0752
+[2021-11-09 16:16:47][__main__	][INFO	] ---> inference #77 of 156 loss: 1.2515 iou: 0.0998
+[2021-11-09 16:16:47][__main__	][INFO	] ---> inference #78 of 156 loss: 1.6561 iou: 0.0891
+[2021-11-09 16:16:47][__main__	][INFO	] ---> inference #79 of 156 loss: 1.5567 iou: 0.0899
+[2021-11-09 16:16:48][__main__	][INFO	] ---> inference #80 of 156 loss: 1.8405 iou: 0.0730
+[2021-11-09 16:16:48][__main__	][INFO	] ---> inference #81 of 156 loss: 1.6632 iou: 0.0866
+[2021-11-09 16:16:48][__main__	][INFO	] ---> inference #82 of 156 loss: 2.1212 iou: 0.0559
+[2021-11-09 16:16:48][__main__	][INFO	] ---> inference #83 of 156 loss: 1.6557 iou: 0.0980
+[2021-11-09 16:16:49][__main__	][INFO	] ---> inference #84 of 156 loss: 1.0597 iou: 0.1215
+[2021-11-09 16:16:49][__main__	][INFO	] ---> inference #85 of 156 loss: 1.3233 iou: 0.1080
+[2021-11-09 16:16:50][__main__	][INFO	] ---> inference #86 of 156 loss: 2.0332 iou: 0.0647
+[2021-11-09 16:16:50][__main__	][INFO	] ---> inference #87 of 156 loss: 1.5383 iou: 0.0899
+[2021-11-09 16:16:50][__main__	][INFO	] ---> inference #88 of 156 loss: 1.6016 iou: 0.0981
+[2021-11-09 16:16:51][__main__	][INFO	] ---> inference #89 of 156 loss: 1.5860 iou: 0.0978
+[2021-11-09 16:16:51][__main__	][INFO	] ---> inference #90 of 156 loss: 1.2326 iou: 0.0942
+[2021-11-09 16:16:51][__main__	][INFO	] ---> inference #91 of 156 loss: 1.5253 iou: 0.1045
+[2021-11-09 16:16:51][__main__	][INFO	] ---> inference #92 of 156 loss: 1.7513 iou: 0.0930
+[2021-11-09 16:16:51][__main__	][INFO	] ---> inference #93 of 156 loss: 1.5537 iou: 0.0845
+[2021-11-09 16:16:52][__main__	][INFO	] ---> inference #94 of 156 loss: 1.3231 iou: 0.0871
+[2021-11-09 16:16:52][__main__	][INFO	] ---> inference #95 of 156 loss: 1.3516 iou: 0.0844
+[2021-11-09 16:16:52][__main__	][INFO	] ---> inference #96 of 156 loss: 1.3238 iou: 0.0814
+[2021-11-09 16:16:53][__main__	][INFO	] ---> inference #97 of 156 loss: 1.5377 iou: 0.0671
+[2021-11-09 16:16:53][__main__	][INFO	] ---> inference #98 of 156 loss: 1.3809 iou: 0.1248
+[2021-11-09 16:16:53][__main__	][INFO	] ---> inference #99 of 156 loss: 1.2348 iou: 0.1166
+[2021-11-09 16:16:54][__main__	][INFO	] ---> inference #100 of 156 loss: 1.0377 iou: 0.1224
+[2021-11-09 16:16:54][__main__	][INFO	] ---> inference #101 of 156 loss: 1.7398 iou: 0.0863
+[2021-11-09 16:16:54][__main__	][INFO	] ---> inference #102 of 156 loss: 2.3523 iou: 0.0950
+[2021-11-09 16:16:55][__main__	][INFO	] ---> inference #103 of 156 loss: 2.1933 iou: 0.0752
+[2021-11-09 16:16:55][__main__	][INFO	] ---> inference #104 of 156 loss: 1.6595 iou: 0.0760
+[2021-11-09 16:16:55][__main__	][INFO	] ---> inference #105 of 156 loss: 1.1825 iou: 0.1176
+[2021-11-09 16:16:56][__main__	][INFO	] ---> inference #106 of 156 loss: 1.7888 iou: 0.0758
+[2021-11-09 16:16:56][__main__	][INFO	] ---> inference #107 of 156 loss: 1.7286 iou: 0.0705
+[2021-11-09 16:16:56][__main__	][INFO	] ---> inference #108 of 156 loss: 1.4531 iou: 0.1180
+[2021-11-09 16:16:57][__main__	][INFO	] ---> inference #109 of 156 loss: 1.5239 iou: 0.1129
+[2021-11-09 16:16:57][__main__	][INFO	] ---> inference #110 of 156 loss: 1.5049 iou: 0.0883
+[2021-11-09 16:16:57][__main__	][INFO	] ---> inference #111 of 156 loss: 1.4852 iou: 0.0863
+[2021-11-09 16:16:58][__main__	][INFO	] ---> inference #112 of 156 loss: 2.0065 iou: 0.0912
+[2021-11-09 16:16:58][__main__	][INFO	] ---> inference #113 of 156 loss: 1.6838 iou: 0.0987
+[2021-11-09 16:16:58][__main__	][INFO	] ---> inference #114 of 156 loss: 0.9019 iou: 0.0712
+[2021-11-09 16:16:59][__main__	][INFO	] ---> inference #115 of 156 loss: 2.1359 iou: 0.0857
+[2021-11-09 16:16:59][__main__	][INFO	] ---> inference #116 of 156 loss: 1.6186 iou: 0.1097
+[2021-11-09 16:17:00][__main__	][INFO	] ---> inference #117 of 156 loss: 1.5288 iou: 0.0904
+[2021-11-09 16:17:00][__main__	][INFO	] ---> inference #118 of 156 loss: 1.5640 iou: 0.0764
+[2021-11-09 16:17:00][__main__	][INFO	] ---> inference #119 of 156 loss: 2.3657 iou: 0.0556
+[2021-11-09 16:17:01][__main__	][INFO	] ---> inference #120 of 156 loss: 1.5265 iou: 0.1005
+[2021-11-09 16:17:02][__main__	][INFO	] ---> inference #121 of 156 loss: 1.8064 iou: 0.0764
+[2021-11-09 16:17:02][__main__	][INFO	] ---> inference #122 of 156 loss: 1.7137 iou: 0.0849
+[2021-11-09 16:17:02][__main__	][INFO	] ---> inference #123 of 156 loss: 1.4739 iou: 0.1144
+[2021-11-09 16:17:03][__main__	][INFO	] ---> inference #124 of 156 loss: 1.7903 iou: 0.0935
+[2021-11-09 16:17:03][__main__	][INFO	] ---> inference #125 of 156 loss: 1.6571 iou: 0.0966
+[2021-11-09 16:17:03][__main__	][INFO	] ---> inference #126 of 156 loss: 1.4836 iou: 0.1036
+[2021-11-09 16:17:04][__main__	][INFO	] ---> inference #127 of 156 loss: 1.2626 iou: 0.1280
+[2021-11-09 16:17:04][__main__	][INFO	] ---> inference #128 of 156 loss: 1.0070 iou: 0.1323
+[2021-11-09 16:17:05][__main__	][INFO	] ---> inference #129 of 156 loss: 1.2401 iou: 0.1196
+[2021-11-09 16:17:05][__main__	][INFO	] ---> inference #130 of 156 loss: 1.6481 iou: 0.1050
+[2021-11-09 16:17:05][__main__	][INFO	] ---> inference #131 of 156 loss: 2.1587 iou: 0.0541
+[2021-11-09 16:17:05][__main__	][INFO	] ---> inference #132 of 156 loss: 2.0656 iou: 0.0722
+[2021-11-09 16:17:06][__main__	][INFO	] ---> inference #133 of 156 loss: 1.1059 iou: 0.1156
+[2021-11-09 16:17:07][__main__	][INFO	] ---> inference #134 of 156 loss: 2.1548 iou: 0.0788
+[2021-11-09 16:17:07][__main__	][INFO	] ---> inference #135 of 156 loss: 1.0617 iou: 0.0733
+[2021-11-09 16:17:07][__main__	][INFO	] ---> inference #136 of 156 loss: 1.9669 iou: 0.0544
+[2021-11-09 16:17:08][__main__	][INFO	] ---> inference #137 of 156 loss: 1.9525 iou: 0.0599
+[2021-11-09 16:17:08][__main__	][INFO	] ---> inference #138 of 156 loss: 1.0978 iou: 0.0997
+[2021-11-09 16:17:08][__main__	][INFO	] ---> inference #139 of 156 loss: 1.4088 iou: 0.0937
+[2021-11-09 16:17:09][__main__	][INFO	] ---> inference #140 of 156 loss: 1.1315 iou: 0.0851
+[2021-11-09 16:17:09][__main__	][INFO	] ---> inference #141 of 156 loss: 1.1780 iou: 0.1441
+[2021-11-09 16:17:09][__main__	][INFO	] ---> inference #142 of 156 loss: 1.8741 iou: 0.0553
+[2021-11-09 16:17:09][__main__	][INFO	] ---> inference #143 of 156 loss: 1.5790 iou: 0.0863
+[2021-11-09 16:17:09][__main__	][INFO	] ---> inference #144 of 156 loss: 1.8856 iou: 0.0846
+[2021-11-09 16:17:10][__main__	][INFO	] ---> inference #145 of 156 loss: 1.7801 iou: 0.0771
+[2021-11-09 16:17:10][__main__	][INFO	] ---> inference #146 of 156 loss: 1.7544 iou: 0.0793
+[2021-11-09 16:17:11][__main__	][INFO	] ---> inference #147 of 156 loss: 1.8997 iou: 0.0773
+[2021-11-09 16:17:11][__main__	][INFO	] ---> inference #148 of 156 loss: 1.9538 iou: 0.0653
+[2021-11-09 16:17:11][__main__	][INFO	] ---> inference #149 of 156 loss: 1.8607 iou: 0.0689
+[2021-11-09 16:17:12][__main__	][INFO	] ---> inference #150 of 156 loss: 1.5684 iou: 0.0965
+[2021-11-09 16:17:12][__main__	][INFO	] ---> inference #151 of 156 loss: 1.5610 iou: 0.0911
+[2021-11-09 16:17:12][__main__	][INFO	] ---> inference #152 of 156 loss: 2.7090 iou: 0.0391
+[2021-11-09 16:17:12][__main__	][INFO	] ---> inference #153 of 156 loss: 2.1870 iou: 0.0674
+[2021-11-09 16:17:12][__main__	][INFO	] ---> inference #154 of 156 loss: 1.9868 iou: 0.0653
+[2021-11-09 16:17:13][__main__	][INFO	] ---> inference #155 of 156 loss: 1.5831 iou: 0.0876
+[2021-11-09 16:17:13][__main__	][INFO	] VAL   at global step #150: loss (avg): 1.5998, iou (avg): 0.0890
+[2021-11-09 16:17:13][__main__	][INFO	] VAL   at global step #150: iou (cls#0): 0.5185
+[2021-11-09 16:17:13][__main__	][INFO	] VAL   at global step #150: iou (cls#1): 0.7973
+[2021-11-09 16:17:13][__main__	][INFO	] VAL   at global step #150: iou (cls#2): 0.0130
+[2021-11-09 16:17:13][__main__	][INFO	] VAL   at global step #150: iou (cls#3): 0.0000
+[2021-11-09 16:17:13][__main__	][INFO	] VAL   at global step #150: iou (cls#4): 0.1857
+[2021-11-09 16:17:13][__main__	][INFO	] VAL   at global step #150: iou (cls#5): 0.0000
+[2021-11-09 16:17:13][__main__	][INFO	] VAL   at global step #150: iou (cls#6): 0.1224
+[2021-11-09 16:17:13][__main__	][INFO	] VAL   at global step #150: iou (cls#7): 0.0236
+[2021-11-09 16:17:13][__main__	][INFO	] VAL   at global step #150: iou (cls#8): 0.1194
+[2021-11-09 16:17:13][__main__	][INFO	] VAL   at global step #150: iou (cls#9): 0.0005
+[2021-11-09 16:17:13][__main__	][INFO	] VAL   at global step #150: iou (cls#10): 0.0000
+[2021-11-09 16:17:13][__main__	][INFO	] VAL   at global step #150: iou (cls#11): 0.0000
+[2021-11-09 16:17:13][__main__	][INFO	] VAL   at global step #150: iou (cls#12): 0.0000
+[2021-11-09 16:17:13][__main__	][INFO	] VAL   at global step #150: iou (cls#13): 0.0000
+[2021-11-09 16:17:13][__main__	][INFO	] VAL   at global step #150: iou (cls#14): 0.0000
+[2021-11-09 16:17:13][__main__	][INFO	] VAL   at global step #150: iou (cls#15): 0.0000
+[2021-11-09 16:17:13][__main__	][INFO	] VAL   at global step #150: iou (cls#16): 0.0000
+[2021-11-09 16:17:13][__main__	][INFO	] VAL   at global step #150: iou (cls#17): 0.0000
+[2021-11-09 16:17:13][__main__	][INFO	] VAL   at global step #150: iou (cls#18): 0.0000
+[2021-11-09 16:17:13][__main__	][INFO	] VAL   at global step #150: iou (cls#19): 0.0001
+[2021-11-09 16:17:13][__main__	][INFO	] Better checkpoint saved
+[2021-11-09 16:17:19][__main__	][INFO	] TRAIN at global step #151 Epoch #2 Step #151 / 151: loss:1.9613, precision: 27.0067
+[2021-11-09 16:17:24][__main__	][INFO	] Checkpoint at epoch #1 saved
+[2021-11-09 16:17:41][__main__	][INFO	] TRAIN at global step #152 Epoch #3 Step #2 / 151: loss:1.9821, precision: 27.3702
+[2021-11-09 16:17:48][__main__	][INFO	] TRAIN at global step #153 Epoch #3 Step #4 / 151: loss:1.6418, precision: 35.1838
+[2021-11-09 16:17:54][__main__	][INFO	] TRAIN at global step #154 Epoch #3 Step #6 / 151: loss:1.7384, precision: 33.5255
+[2021-11-09 16:18:01][__main__	][INFO	] TRAIN at global step #155 Epoch #3 Step #8 / 151: loss:1.6541, precision: 33.0427
+[2021-11-09 16:18:08][__main__	][INFO	] TRAIN at global step #156 Epoch #3 Step #10 / 151: loss:1.8294, precision: 28.4909
+[2021-11-09 16:18:12][__main__	][INFO	] TRAIN at global step #157 Epoch #3 Step #12 / 151: loss:1.7999, precision: 30.6325
+[2021-11-09 16:18:20][__main__	][INFO	] TRAIN at global step #158 Epoch #3 Step #14 / 151: loss:1.4688, precision: 44.7678
+[2021-11-09 16:18:26][__main__	][INFO	] TRAIN at global step #159 Epoch #3 Step #16 / 151: loss:1.8007, precision: 33.1614
+[2021-11-09 16:18:34][__main__	][INFO	] TRAIN at global step #160 Epoch #3 Step #18 / 151: loss:1.6519, precision: 35.6417
+[2021-11-09 16:18:41][__main__	][INFO	] TRAIN at global step #161 Epoch #3 Step #20 / 151: loss:1.7594, precision: 28.3714
+[2021-11-09 16:18:47][__main__	][INFO	] TRAIN at global step #162 Epoch #3 Step #22 / 151: loss:1.9343, precision: 24.5610
+[2021-11-09 16:18:53][__main__	][INFO	] TRAIN at global step #163 Epoch #3 Step #24 / 151: loss:1.5548, precision: 40.3451
+[2021-11-09 16:18:59][__main__	][INFO	] TRAIN at global step #164 Epoch #3 Step #26 / 151: loss:1.8262, precision: 26.3768
+[2021-11-09 16:19:05][__main__	][INFO	] TRAIN at global step #165 Epoch #3 Step #28 / 151: loss:1.5561, precision: 35.9980
+[2021-11-09 16:19:11][__main__	][INFO	] TRAIN at global step #166 Epoch #3 Step #30 / 151: loss:1.6436, precision: 35.9676
+[2021-11-09 16:19:18][__main__	][INFO	] TRAIN at global step #167 Epoch #3 Step #32 / 151: loss:1.5475, precision: 35.0292
+[2021-11-09 16:19:25][__main__	][INFO	] TRAIN at global step #168 Epoch #3 Step #34 / 151: loss:1.8576, precision: 25.0983
+[2021-11-09 16:19:31][__main__	][INFO	] TRAIN at global step #169 Epoch #3 Step #36 / 151: loss:1.4355, precision: 36.2901
+[2021-11-09 16:19:38][__main__	][INFO	] TRAIN at global step #170 Epoch #3 Step #38 / 151: loss:1.5203, precision: 43.1168
+[2021-11-09 16:19:45][__main__	][INFO	] TRAIN at global step #171 Epoch #3 Step #40 / 151: loss:1.5377, precision: 39.7190
+[2021-11-09 16:19:52][__main__	][INFO	] TRAIN at global step #172 Epoch #3 Step #42 / 151: loss:1.7459, precision: 29.5919
+[2021-11-09 16:19:58][__main__	][INFO	] TRAIN at global step #173 Epoch #3 Step #44 / 151: loss:1.6637, precision: 32.7751
+[2021-11-09 16:20:06][__main__	][INFO	] TRAIN at global step #174 Epoch #3 Step #46 / 151: loss:1.9701, precision: 24.4107
+[2021-11-09 16:20:13][__main__	][INFO	] TRAIN at global step #175 Epoch #3 Step #48 / 151: loss:1.7349, precision: 27.2628
+[2021-11-09 16:20:19][__main__	][INFO	] TRAIN at global step #176 Epoch #3 Step #50 / 151: loss:1.7664, precision: 29.3803
+[2021-11-09 16:20:25][__main__	][INFO	] TRAIN at global step #177 Epoch #3 Step #52 / 151: loss:1.6812, precision: 35.2039
+[2021-11-09 16:20:32][__main__	][INFO	] TRAIN at global step #178 Epoch #3 Step #54 / 151: loss:1.6948, precision: 28.6811
+[2021-11-09 16:20:39][__main__	][INFO	] TRAIN at global step #179 Epoch #3 Step #56 / 151: loss:1.8236, precision: 23.9635
+[2021-11-09 16:20:45][__main__	][INFO	] TRAIN at global step #180 Epoch #3 Step #58 / 151: loss:1.8014, precision: 30.6669
+[2021-11-09 16:20:53][__main__	][INFO	] TRAIN at global step #181 Epoch #3 Step #60 / 151: loss:1.7254, precision: 28.0224
+[2021-11-09 16:21:01][__main__	][INFO	] TRAIN at global step #182 Epoch #3 Step #62 / 151: loss:1.5296, precision: 40.5250
+[2021-11-09 16:21:07][__main__	][INFO	] TRAIN at global step #183 Epoch #3 Step #64 / 151: loss:1.7912, precision: 27.8895
+[2021-11-09 16:21:14][__main__	][INFO	] TRAIN at global step #184 Epoch #3 Step #66 / 151: loss:1.7447, precision: 28.0492
+[2021-11-09 16:21:20][__main__	][INFO	] TRAIN at global step #185 Epoch #3 Step #68 / 151: loss:1.7177, precision: 27.7378
+[2021-11-09 16:21:26][__main__	][INFO	] TRAIN at global step #186 Epoch #3 Step #70 / 151: loss:1.6637, precision: 32.7847
+[2021-11-09 16:21:33][__main__	][INFO	] TRAIN at global step #187 Epoch #3 Step #72 / 151: loss:1.5735, precision: 35.5712
+[2021-11-09 16:21:40][__main__	][INFO	] TRAIN at global step #188 Epoch #3 Step #74 / 151: loss:1.5270, precision: 38.7918
+[2021-11-09 16:21:46][__main__	][INFO	] TRAIN at global step #189 Epoch #3 Step #76 / 151: loss:1.6229, precision: 38.5237
+[2021-11-09 16:21:52][__main__	][INFO	] TRAIN at global step #190 Epoch #3 Step #78 / 151: loss:1.3991, precision: 41.9794
+[2021-11-09 16:22:00][__main__	][INFO	] TRAIN at global step #191 Epoch #3 Step #80 / 151: loss:1.9339, precision: 23.4296
+[2021-11-09 16:22:08][__main__	][INFO	] TRAIN at global step #192 Epoch #3 Step #82 / 151: loss:1.6922, precision: 30.7834
+[2021-11-09 16:22:17][__main__	][INFO	] TRAIN at global step #193 Epoch #3 Step #84 / 151: loss:1.5228, precision: 36.4389
+[2021-11-09 16:22:23][__main__	][INFO	] TRAIN at global step #194 Epoch #3 Step #86 / 151: loss:1.5583, precision: 35.9260
+[2021-11-09 16:22:30][__main__	][INFO	] TRAIN at global step #195 Epoch #3 Step #88 / 151: loss:1.5303, precision: 40.5850
+[2021-11-09 16:22:39][__main__	][INFO	] TRAIN at global step #196 Epoch #3 Step #90 / 151: loss:1.6940, precision: 32.7988
+[2021-11-09 16:22:45][__main__	][INFO	] TRAIN at global step #197 Epoch #3 Step #92 / 151: loss:1.6660, precision: 29.6761
+[2021-11-09 16:22:51][__main__	][INFO	] TRAIN at global step #198 Epoch #3 Step #94 / 151: loss:1.8192, precision: 26.3458
+[2021-11-09 16:22:58][__main__	][INFO	] TRAIN at global step #199 Epoch #3 Step #96 / 151: loss:1.6049, precision: 32.3251
+[2021-11-09 16:23:04][__main__	][INFO	] TRAIN at global step #200 Epoch #3 Step #98 / 151: loss:1.4983, precision: 28.5197
+[2021-11-09 16:23:12][__main__	][INFO	] TRAIN at global step #201 Epoch #3 Step #100 / 151: loss:1.3587, precision: 41.7603
+[2021-11-09 16:23:20][__main__	][INFO	] TRAIN at global step #202 Epoch #3 Step #102 / 151: loss:1.5496, precision: 28.6713
+[2021-11-09 16:23:27][__main__	][INFO	] TRAIN at global step #203 Epoch #3 Step #104 / 151: loss:1.6297, precision: 34.5210
+[2021-11-09 16:23:34][__main__	][INFO	] TRAIN at global step #204 Epoch #3 Step #106 / 151: loss:1.4989, precision: 34.8766
+[2021-11-09 16:23:42][__main__	][INFO	] TRAIN at global step #205 Epoch #3 Step #108 / 151: loss:1.5090, precision: 38.3148
+[2021-11-09 16:23:48][__main__	][INFO	] TRAIN at global step #206 Epoch #3 Step #110 / 151: loss:1.5583, precision: 35.9614
+[2021-11-09 16:23:56][__main__	][INFO	] TRAIN at global step #207 Epoch #3 Step #112 / 151: loss:1.6229, precision: 32.4433
+[2021-11-09 16:24:03][__main__	][INFO	] TRAIN at global step #208 Epoch #3 Step #114 / 151: loss:1.7076, precision: 32.4141
+[2021-11-09 16:24:10][__main__	][INFO	] TRAIN at global step #209 Epoch #3 Step #116 / 151: loss:1.7156, precision: 29.7661
+[2021-11-09 16:24:17][__main__	][INFO	] TRAIN at global step #210 Epoch #3 Step #118 / 151: loss:1.5311, precision: 38.1613
+[2021-11-09 16:24:25][__main__	][INFO	] TRAIN at global step #211 Epoch #3 Step #120 / 151: loss:1.5430, precision: 36.8121
+[2021-11-09 16:24:31][__main__	][INFO	] TRAIN at global step #212 Epoch #3 Step #122 / 151: loss:1.6276, precision: 33.7694
+[2021-11-09 16:24:37][__main__	][INFO	] TRAIN at global step #213 Epoch #3 Step #124 / 151: loss:1.4867, precision: 39.2471
+[2021-11-09 16:24:44][__main__	][INFO	] TRAIN at global step #214 Epoch #3 Step #126 / 151: loss:1.5961, precision: 38.0025
+[2021-11-09 16:24:50][__main__	][INFO	] TRAIN at global step #215 Epoch #3 Step #128 / 151: loss:1.7490, precision: 29.0658
+[2021-11-09 16:24:57][__main__	][INFO	] TRAIN at global step #216 Epoch #3 Step #130 / 151: loss:1.7596, precision: 29.3411
+[2021-11-09 16:25:02][__main__	][INFO	] TRAIN at global step #217 Epoch #3 Step #132 / 151: loss:1.6117, precision: 33.7436
+[2021-11-09 16:25:09][__main__	][INFO	] TRAIN at global step #218 Epoch #3 Step #134 / 151: loss:1.6189, precision: 26.9650
+[2021-11-09 16:25:15][__main__	][INFO	] TRAIN at global step #219 Epoch #3 Step #136 / 151: loss:1.4443, precision: 39.5501
+[2021-11-09 16:25:21][__main__	][INFO	] TRAIN at global step #220 Epoch #3 Step #138 / 151: loss:1.7529, precision: 31.6444
+[2021-11-09 16:25:28][__main__	][INFO	] TRAIN at global step #221 Epoch #3 Step #140 / 151: loss:1.4594, precision: 42.1594
+[2021-11-09 16:25:34][__main__	][INFO	] TRAIN at global step #222 Epoch #3 Step #142 / 151: loss:1.7907, precision: 26.3848
+[2021-11-09 16:25:39][__main__	][INFO	] TRAIN at global step #223 Epoch #3 Step #144 / 151: loss:1.6586, precision: 34.6635
+[2021-11-09 16:25:45][__main__	][INFO	] TRAIN at global step #224 Epoch #3 Step #146 / 151: loss:1.4899, precision: 36.0959
+[2021-11-09 16:25:51][__main__	][INFO	] TRAIN at global step #225 Epoch #3 Step #148 / 151: loss:1.4818, precision: 31.9369
+[2021-11-09 16:25:57][__main__	][INFO	] TRAIN at global step #226 Epoch #3 Step #150 / 151: loss:1.8327, precision: 25.9462
+[2021-11-09 16:26:00][__main__	][INFO	] Checkpoint at epoch #2 saved
+[2021-11-09 16:26:08][__main__	][INFO	] TRAIN at global step #227 Epoch #4 Step #1 / 151: loss:1.9124, precision: 22.0341
+[2021-11-09 16:26:14][__main__	][INFO	] TRAIN at global step #228 Epoch #4 Step #3 / 151: loss:1.7431, precision: 25.7835
+[2021-11-09 16:26:21][__main__	][INFO	] TRAIN at global step #229 Epoch #4 Step #5 / 151: loss:1.5550, precision: 33.2203
+[2021-11-09 16:26:27][__main__	][INFO	] TRAIN at global step #230 Epoch #4 Step #7 / 151: loss:1.4032, precision: 40.5221
+[2021-11-09 16:26:34][__main__	][INFO	] TRAIN at global step #231 Epoch #4 Step #9 / 151: loss:1.2911, precision: 38.4841
+[2021-11-09 16:26:40][__main__	][INFO	] TRAIN at global step #232 Epoch #4 Step #11 / 151: loss:1.4757, precision: 38.8670
+[2021-11-09 16:26:47][__main__	][INFO	] TRAIN at global step #233 Epoch #4 Step #13 / 151: loss:1.4191, precision: 40.7933
+[2021-11-09 16:26:54][__main__	][INFO	] TRAIN at global step #234 Epoch #4 Step #15 / 151: loss:1.4257, precision: 39.7473
+[2021-11-09 16:27:00][__main__	][INFO	] TRAIN at global step #235 Epoch #4 Step #17 / 151: loss:1.5675, precision: 30.0374
+[2021-11-09 16:27:07][__main__	][INFO	] TRAIN at global step #236 Epoch #4 Step #19 / 151: loss:1.4765, precision: 34.1089
+[2021-11-09 16:27:13][__main__	][INFO	] TRAIN at global step #237 Epoch #4 Step #21 / 151: loss:1.3829, precision: 43.7411
+[2021-11-09 16:27:19][__main__	][INFO	] TRAIN at global step #238 Epoch #4 Step #23 / 151: loss:1.3543, precision: 31.4436
+[2021-11-09 16:27:24][__main__	][INFO	] TRAIN at global step #239 Epoch #4 Step #25 / 151: loss:1.6830, precision: 35.8686
+[2021-11-09 16:27:30][__main__	][INFO	] TRAIN at global step #240 Epoch #4 Step #27 / 151: loss:1.5897, precision: 32.3622
+[2021-11-09 16:27:39][__main__	][INFO	] TRAIN at global step #241 Epoch #4 Step #29 / 151: loss:1.4226, precision: 40.8792
+[2021-11-09 16:27:47][__main__	][INFO	] TRAIN at global step #242 Epoch #4 Step #31 / 151: loss:1.7488, precision: 30.6708
+[2021-11-09 16:27:54][__main__	][INFO	] TRAIN at global step #243 Epoch #4 Step #33 / 151: loss:1.8706, precision: 24.7052
+[2021-11-09 16:28:00][__main__	][INFO	] TRAIN at global step #244 Epoch #4 Step #35 / 151: loss:1.3691, precision: 41.5646
+[2021-11-09 16:28:06][__main__	][INFO	] TRAIN at global step #245 Epoch #4 Step #37 / 151: loss:1.3699, precision: 41.2563
+[2021-11-09 16:28:12][__main__	][INFO	] TRAIN at global step #246 Epoch #4 Step #39 / 151: loss:1.6613, precision: 33.4471
+[2021-11-09 16:28:19][__main__	][INFO	] TRAIN at global step #247 Epoch #4 Step #41 / 151: loss:1.4255, precision: 40.6916
+[2021-11-09 16:28:24][__main__	][INFO	] TRAIN at global step #248 Epoch #4 Step #43 / 151: loss:1.4575, precision: 35.3722
+[2021-11-09 16:28:32][__main__	][INFO	] TRAIN at global step #249 Epoch #4 Step #45 / 151: loss:1.5139, precision: 34.2287
+[2021-11-09 16:28:39][__main__	][INFO	] TRAIN at global step #250 Epoch #4 Step #47 / 151: loss:1.7362, precision: 29.4914
+[2021-11-09 16:28:45][__main__	][INFO	] TRAIN at global step #251 Epoch #4 Step #49 / 151: loss:1.8899, precision: 24.5339
+[2021-11-09 16:28:52][__main__	][INFO	] TRAIN at global step #252 Epoch #4 Step #51 / 151: loss:1.6208, precision: 27.9566
+[2021-11-09 16:28:58][__main__	][INFO	] TRAIN at global step #253 Epoch #4 Step #53 / 151: loss:1.5736, precision: 37.1599
+[2021-11-09 16:29:04][__main__	][INFO	] TRAIN at global step #254 Epoch #4 Step #55 / 151: loss:1.5044, precision: 36.6494
+[2021-11-09 16:29:11][__main__	][INFO	] TRAIN at global step #255 Epoch #4 Step #57 / 151: loss:1.3695, precision: 43.0202
+[2021-11-09 16:29:18][__main__	][INFO	] TRAIN at global step #256 Epoch #4 Step #59 / 151: loss:1.5237, precision: 35.1020
+[2021-11-09 16:29:24][__main__	][INFO	] TRAIN at global step #257 Epoch #4 Step #61 / 151: loss:1.4859, precision: 35.3504
+[2021-11-09 16:29:31][__main__	][INFO	] TRAIN at global step #258 Epoch #4 Step #63 / 151: loss:1.5662, precision: 34.8343
+[2021-11-09 16:29:39][__main__	][INFO	] TRAIN at global step #259 Epoch #4 Step #65 / 151: loss:1.4377, precision: 40.6888
+[2021-11-09 16:29:45][__main__	][INFO	] TRAIN at global step #260 Epoch #4 Step #67 / 151: loss:1.4754, precision: 36.2384
+[2021-11-09 16:29:50][__main__	][INFO	] TRAIN at global step #261 Epoch #4 Step #69 / 151: loss:1.5588, precision: 37.0684
+[2021-11-09 16:29:59][__main__	][INFO	] TRAIN at global step #262 Epoch #4 Step #71 / 151: loss:1.4237, precision: 34.7817
+[2021-11-09 16:30:05][__main__	][INFO	] TRAIN at global step #263 Epoch #4 Step #73 / 151: loss:1.4603, precision: 36.0839
+Traceback (most recent call last):
+  File "new.py", line 1012, in <module>
+    main()
+  File "new.py", line 90, in main
+    main_worker()
+  File "new.py", line 217, in main_worker
+    train(model, train_dataloader, val_dataloader, config, logger, rank=rank, world_size=world_size)
+  File "new.py", line 747, in train
+    loss.backward()
+  File "/home/aidrive/tb5zhh/.conda/envs/tbw_3dscan/lib/python3.8/site-packages/torch/tensor.py", line 245, in backward
+    torch.autograd.backward(self, gradient, retain_graph, create_graph, inputs=inputs)
+  File "/home/aidrive/tb5zhh/.conda/envs/tbw_3dscan/lib/python3.8/site-packages/torch/autograd/__init__.py", line 145, in backward
+    Variable._execution_engine.run_backward(
+RuntimeError: CUDA out of memory. Tried to allocate 486.00 MiB (GPU 0; 19.62 GiB total capacity; 16.93 GiB already allocated; 113.12 MiB free; 17.91 GiB reserved in total by PyTorch)
+
+wandb: Waiting for W&B process to finish, PID 232418... (failed 1). Press ctrl-c to abort syncing.
+wandb: - 0.05MB of 0.05MB uploaded (0.00MB deduped)wandb: \ 0.05MB of 0.05MB uploaded (0.00MB deduped)wandb: | 0.05MB of 0.06MB uploaded (0.00MB deduped)wandb: / 0.05MB of 0.11MB uploaded (0.00MB deduped)wandb: - 0.05MB of 0.11MB uploaded (0.00MB deduped)wandb: \ 0.05MB of 0.11MB uploaded (0.00MB deduped)wandb: | 0.05MB of 0.11MB uploaded (0.00MB deduped)wandb: / 0.05MB of 0.11MB uploaded (0.00MB deduped)wandb: - 0.06MB of 0.11MB uploaded (0.00MB deduped)wandb: \ 0.11MB of 0.11MB uploaded (0.00MB deduped)wandb: | 0.11MB of 0.11MB uploaded (0.00MB deduped)wandb: / 0.11MB of 0.11MB uploaded (0.00MB deduped)wandb: - 0.11MB of 0.11MB uploaded (0.00MB deduped)wandb: \ 0.11MB of 0.11MB uploaded (0.00MB deduped)wandb: | 0.11MB of 0.11MB uploaded (0.00MB deduped)wandb: / 0.11MB of 0.11MB uploaded (0.00MB deduped)wandb: - 0.11MB of 0.11MB uploaded (0.00MB deduped)wandb: \ 0.11MB of 0.11MB uploaded (0.00MB deduped)wandb:                                                                                
+wandb: Run history:
+wandb:     global_step ▁▁▁▂▂▂▂▂▂▃▃▃▃▃▃▄▄▄▄▄▅▅▅▅▅▅▆▆▆▆▆▆▇▇▇▇▇███
+wandb:   learning rate ████▇▇▇▇▇▆▆▆▆▆▆▅▅▅▅▅▅▄▄▄▄▄▃▃▃▃▃▃▂▂▂▂▂▁▁▁
+wandb:            loss █▆▅▅▄▅▅▄▅▄▆▄▃▄▄▄▄▅▄▅▄▄▃▄▃▄▃▃▃▃▂▂▂▃▂▂▂▁▂▂
+wandb:      optim_step ▁▁▁▁▂▂▂▂▂▃▃▃▃▃▃▄▄▄▄▄▅▅▅▅▅▅▆▆▆▆▆▆▇▇▇▇▇███
+wandb:       precision ▁▃▅▅▃▄▄▅▂▄▂▅▆▅▄▄▃▄▅▃▄▅▆▄▆▄▅▅▄▅▄▆▆▅▇▇▅█▄▇
+wandb:        val_loss ▁
+wandb:   val_miou_mean ▁
+wandb:        val_step ▁
+wandb: 
+wandb: Run summary:
+wandb:     global_step 263
+wandb:   learning rate 0.09921
+wandb:            loss 1.46028
+wandb:      optim_step 263
+wandb:       precision 36.08392
+wandb:        val_loss 1.59983
+wandb:   val_miou_mean 0.08903
+wandb:        val_step 1
+wandb: 
+wandb: Synced 6 W&B file(s), 0 media file(s), 0 artifact file(s) and 1 other file(s)
+wandb: Synced swift-resonance-276: https://wandb.ai/tb5zhh/3dsp/runs/2jk5zane
+wandb: Find logs at: ./wandb/run-20211109_155915-2jk5zane/logs/debug.log
+wandb: 

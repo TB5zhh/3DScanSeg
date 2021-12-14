@@ -1,0 +1,492 @@
+/home/aidrive/tb5zhh/.conda/envs/tbw_3dscan/lib/python3.8/site-packages/MinkowskiEngine/__init__.py:36: UserWarning: The environment variable `OMP_NUM_THREADS` not set. MinkowskiEngine will automatically set `OMP_NUM_THREADS=16`. If you want to set `OMP_NUM_THREADS` manually, please export it on the command line before running a python script. e.g. `export OMP_NUM_THREADS=12; python your_program.py`. It is recommended to set it below 24.
+  warnings.warn(
+[2021-11-09 11:41:31][__main__	][INFO	] Run with 1 cpu
+[2021-11-09 11:41:31][__main__	][INFO	] Running config
+[2021-11-09 11:41:31][__main__	][INFO	] --->                          model: Res16UNet34C
+[2021-11-09 11:41:31][__main__	][INFO	] --->              conv1_kernel_size: 5
+[2021-11-09 11:41:31][__main__	][INFO	] --->                        weights: checkpoints/pretrain_20000.pth
+[2021-11-09 11:41:31][__main__	][INFO	] --->                       weights1: /home/aidrive1/workspace/luoly/dataset/final/min_weights/LR/unc/1/512/checkpoint_NoneRes16UNet34Cbest_val.pth
+[2021-11-09 11:41:31][__main__	][INFO	] --->                       weights2: /home/aidrive1/workspace/luoly/dataset/final/min_weights/LR/512/1/checkpoint_NoneRes16UNet34Cbest_val.pth
+[2021-11-09 11:41:31][__main__	][INFO	] --->                       weights3: /home/aidrive1/workspace/luoly/dataset/final/min_weights/LR/1024/1/checkpoint_NoneRes16UNet34Cbest_val.pth
+[2021-11-09 11:41:31][__main__	][INFO	] --->        weights_for_inner_model: False
+[2021-11-09 11:41:31][__main__	][INFO	] --->                      dilations: [1, 1, 1, 1]
+[2021-11-09 11:41:31][__main__	][INFO	] --->                   wrapper_type: None
+[2021-11-09 11:41:31][__main__	][INFO	] --->            wrapper_region_type: 1
+[2021-11-09 11:41:31][__main__	][INFO	] --->            wrapper_kernel_size: 3
+[2021-11-09 11:41:31][__main__	][INFO	] --->                     wrapper_lr: 0.1
+[2021-11-09 11:41:31][__main__	][INFO	] --->           meanfield_iterations: 10
+[2021-11-09 11:41:31][__main__	][INFO	] --->              crf_spatial_sigma: 1
+[2021-11-09 11:41:31][__main__	][INFO	] --->            crf_chromatic_sigma: 12
+[2021-11-09 11:41:31][__main__	][INFO	] --->                      optimizer: SGD
+[2021-11-09 11:41:31][__main__	][INFO	] --->                             lr: 0.1
+[2021-11-09 11:41:31][__main__	][INFO	] --->                   sgd_momentum: 0.9
+[2021-11-09 11:41:31][__main__	][INFO	] --->                  sgd_dampening: 0.1
+[2021-11-09 11:41:31][__main__	][INFO	] --->                     adam_beta1: 0.9
+[2021-11-09 11:41:31][__main__	][INFO	] --->                     adam_beta2: 0.999
+[2021-11-09 11:41:31][__main__	][INFO	] --->                   weight_decay: 0.0001
+[2021-11-09 11:41:31][__main__	][INFO	] --->           param_histogram_freq: 100
+[2021-11-09 11:41:31][__main__	][INFO	] --->           save_param_histogram: False
+[2021-11-09 11:41:31][__main__	][INFO	] --->                      iter_size: 1
+[2021-11-09 11:41:31][__main__	][INFO	] --->                    bn_momentum: 0.02
+[2021-11-09 11:41:31][__main__	][INFO	] --->                      scheduler: PolyLR
+[2021-11-09 11:41:31][__main__	][INFO	] --->                       max_iter: 30000
+[2021-11-09 11:41:31][__main__	][INFO	] --->                      step_size: 20000.0
+[2021-11-09 11:41:31][__main__	][INFO	] --->                     step_gamma: 0.1
+[2021-11-09 11:41:31][__main__	][INFO	] --->                     poly_power: 0.9
+[2021-11-09 11:41:31][__main__	][INFO	] --->                      exp_gamma: 0.95
+[2021-11-09 11:41:31][__main__	][INFO	] --->                  exp_step_size: 445
+[2021-11-09 11:41:31][__main__	][INFO	] --->                        log_dir: log
+[2021-11-09 11:41:31][__main__	][INFO	] --->                       data_dir: data
+[2021-11-09 11:41:31][__main__	][INFO	] --->                        dataset: ScannetVoxelization2cmDataset
+[2021-11-09 11:41:31][__main__	][INFO	] --->                    testdataset: ScannetVoxelization2cmtestDataset
+[2021-11-09 11:41:31][__main__	][INFO	] --->              temporal_dilation: 30
+[2021-11-09 11:41:31][__main__	][INFO	] --->                temporal_numseq: 3
+[2021-11-09 11:41:31][__main__	][INFO	] --->                      point_lim: -1
+[2021-11-09 11:41:31][__main__	][INFO	] --->                  pre_point_lim: -1
+[2021-11-09 11:41:31][__main__	][INFO	] --->                     batch_size: 1
+[2021-11-09 11:41:31][__main__	][INFO	] --->                test_batch_size: 1
+[2021-11-09 11:41:31][__main__	][INFO	] --->                     cache_data: False
+[2021-11-09 11:41:31][__main__	][INFO	] --->                    num_workers: 4
+[2021-11-09 11:41:31][__main__	][INFO	] --->                num_val_workers: 1
+[2021-11-09 11:41:31][__main__	][INFO	] --->                   ignore_label: 255
+[2021-11-09 11:41:31][__main__	][INFO	] --->          return_transformation: False
+[2021-11-09 11:41:31][__main__	][INFO	] --->         ignore_duplicate_class: False
+[2021-11-09 11:41:31][__main__	][INFO	] --->                   partial_crop: 0.0
+[2021-11-09 11:41:31][__main__	][INFO	] --->          train_limit_numpoints: 0
+[2021-11-09 11:41:31][__main__	][INFO	] --->                   synthia_path: /home/chrischoy/datasets/Synthia/Synthia4D
+[2021-11-09 11:41:31][__main__	][INFO	] --->            synthia_camera_path: /home/chrischoy/datasets/Synthia/%s/CameraParams/
+[2021-11-09 11:41:31][__main__	][INFO	] --->  synthia_camera_intrinsic_file: intrinsics.txt
+[2021-11-09 11:41:31][__main__	][INFO	] ---> synthia_camera_extrinsics_file: Stereo_Right/Omni_F/%s.txt
+[2021-11-09 11:41:31][__main__	][INFO	] --->         temporal_rand_dilation: False
+[2021-11-09 11:41:31][__main__	][INFO	] --->           temporal_rand_numseq: False
+[2021-11-09 11:41:31][__main__	][INFO	] --->                   scannet_path: /home/aidrive/tb5zhh/data/100_fit_spec/train
+[2021-11-09 11:41:31][__main__	][INFO	] --->              scannet_test_path: /home/aidrive/tb5zhh/data/full/train
+[2021-11-09 11:41:31][__main__	][INFO	] --->                stanford3d_path: /home/chrischoy/datasets/Stanford3D
+[2021-11-09 11:41:31][__main__	][INFO	] --->                       is_train: True
+[2021-11-09 11:41:31][__main__	][INFO	] --->                      stat_freq: 40
+[2021-11-09 11:41:31][__main__	][INFO	] --->                 test_stat_freq: 100
+[2021-11-09 11:41:31][__main__	][INFO	] --->                test_stat_freq1: 312
+[2021-11-09 11:41:31][__main__	][INFO	] --->                      save_freq: 1000
+[2021-11-09 11:41:31][__main__	][INFO	] --->                       val_freq: 2
+[2021-11-09 11:41:31][__main__	][INFO	] --->               empty_cache_freq: 1
+[2021-11-09 11:41:31][__main__	][INFO	] --->                    train_phase: train
+[2021-11-09 11:41:31][__main__	][INFO	] --->                      val_phase: val
+[2021-11-09 11:41:31][__main__	][INFO	] --->              overwrite_weights: True
+[2021-11-09 11:41:31][__main__	][INFO	] --->                         resume: None
+[2021-11-09 11:41:31][__main__	][INFO	] --->               resume_optimizer: True
+[2021-11-09 11:41:31][__main__	][INFO	] --->                  eval_upsample: False
+[2021-11-09 11:41:31][__main__	][INFO	] --->         lenient_weight_loading: False
+[2021-11-09 11:41:31][__main__	][INFO	] --->         distributed_world_size: 2
+[2021-11-09 11:41:31][__main__	][INFO	] --->               distributed_rank: 0
+[2021-11-09 11:41:31][__main__	][INFO	] --->            distributed_backend: nccl
+[2021-11-09 11:41:31][__main__	][INFO	] --->        distributed_init_method: 
+[2021-11-09 11:41:31][__main__	][INFO	] --->               distributed_port: 10010
+[2021-11-09 11:41:31][__main__	][INFO	] --->                      device_id: 0
+[2021-11-09 11:41:31][__main__	][INFO	] --->           distributed_no_spawn: True
+[2021-11-09 11:41:31][__main__	][INFO	] --->                    ddp_backend: c10d
+[2021-11-09 11:41:31][__main__	][INFO	] --->                  bucket_cap_mb: 25
+[2021-11-09 11:41:31][__main__	][INFO	] --->                   use_feat_aug: True
+[2021-11-09 11:41:31][__main__	][INFO	] --->     data_aug_color_trans_ratio: 0.1
+[2021-11-09 11:41:31][__main__	][INFO	] --->      data_aug_color_jitter_std: 0.05
+[2021-11-09 11:41:31][__main__	][INFO	] --->                normalize_color: True
+[2021-11-09 11:41:31][__main__	][INFO	] --->             data_aug_scale_min: 0.9
+[2021-11-09 11:41:31][__main__	][INFO	] --->             data_aug_scale_max: 1.1
+[2021-11-09 11:41:31][__main__	][INFO	] --->               data_aug_hue_max: 0.5
+[2021-11-09 11:41:31][__main__	][INFO	] --->        data_aug_saturation_max: 0.2
+[2021-11-09 11:41:31][__main__	][INFO	] --->                      visualize: False
+[2021-11-09 11:41:31][__main__	][INFO	] --->          test_temporal_average: False
+[2021-11-09 11:41:31][__main__	][INFO	] --->                 visualize_path: outputs/visualize
+[2021-11-09 11:41:31][__main__	][INFO	] --->                save_prediction: False
+[2021-11-09 11:41:31][__main__	][INFO	] --->                  save_pred_dir: outputs/pred
+[2021-11-09 11:41:31][__main__	][INFO	] --->                     test_phase: test
+[2021-11-09 11:41:31][__main__	][INFO	] --->   evaluate_original_pointcloud: False
+[2021-11-09 11:41:31][__main__	][INFO	] --->       test_original_pointcloud: False
+[2021-11-09 11:41:31][__main__	][INFO	] --->                        is_cuda: True
+[2021-11-09 11:41:31][__main__	][INFO	] --->                      load_path: 
+[2021-11-09 11:41:31][__main__	][INFO	] --->                       log_step: 50
+[2021-11-09 11:41:31][__main__	][INFO	] --->                      log_level: INFO
+[2021-11-09 11:41:31][__main__	][INFO	] --->                        num_gpu: 1
+[2021-11-09 11:41:31][__main__	][INFO	] --->                           seed: 42
+[2021-11-09 11:41:31][__main__	][INFO	] --->                       run_name: finetune_fit_spec_0.1_100_Res16UNet34C
+[2021-11-09 11:41:31][__main__	][INFO	] --->                      unc_round: 20
+[2021-11-09 11:41:31][__main__	][INFO	] --->                 unc_result_dir: /
+[2021-11-09 11:41:31][__main__	][INFO	] --->                          wandb: True
+[2021-11-09 11:41:31][__main__	][INFO	] --->                  train_dataset: ScannetVoxelization2cmDataset
+[2021-11-09 11:41:31][__main__	][INFO	] --->                    val_dataset: ScannetVoxelization2cmtestDataset
+[2021-11-09 11:41:31][__main__	][INFO	] --->                 checkpoint_dir: checkpoints
+[2021-11-09 11:41:31][__main__	][INFO	] --->                     optim_step: 2
+[2021-11-09 11:41:31][__main__	][INFO	] --->                  validate_step: 150
+[2021-11-09 11:41:31][__main__	][INFO	] --->                    train_epoch: 20000
+[2021-11-09 11:41:31][__main__	][INFO	] --->               train_batch_size: 8
+[2021-11-09 11:41:31][__main__	][INFO	] --->                 val_batch_size: 8
+[2021-11-09 11:41:31][__main__	][INFO	] --->                eval_result_dir: /
+[2021-11-09 11:41:31][__main__	][INFO	] --->                  unc_stat_path: /
+[2021-11-09 11:41:31][__main__	][INFO	] --->                     save_epoch: 1
+[2021-11-09 11:41:31][__main__	][INFO	] --->                   ignore_index: 255
+[2021-11-09 11:41:31][__main__	][INFO	] --->                       do_train: True
+[2021-11-09 11:41:31][__main__	][INFO	] --->               do_unc_inference: False
+[2021-11-09 11:41:31][__main__	][INFO	] --->                    do_unc_demo: False
+[2021-11-09 11:41:31][__main__	][INFO	] --->                    unc_dataset: 
+[2021-11-09 11:41:31][__main__	][INFO	] --->           do_verbose_inference: False
+[2021-11-09 11:41:31][__main__	][INFO	] --->                  do_unc_render: False
+[2021-11-09 11:41:40][__main__	][INFO	] Weights loaded from checkpoints/pretrain_20000.pth
+[2021-11-09 11:41:40][__main__	][INFO	] Model setup done
+[2021-11-09 11:41:40][__main__	][INFO	] 
+Res16UNet34C(
+  (conv0p1s1): MinkowskiConvolution(in=3, out=32, kernel_size=[5, 5, 5], stride=[1, 1, 1], dilation=[1, 1, 1])
+  (bn0): MinkowskiBatchNorm(32, eps=1e-05, momentum=0.02, affine=True, track_running_stats=True)
+  (conv1p1s2): MinkowskiConvolution(in=32, out=32, kernel_size=[2, 2, 2], stride=[2, 2, 2], dilation=[1, 1, 1])
+  (bn1): MinkowskiBatchNorm(32, eps=1e-05, momentum=0.02, affine=True, track_running_stats=True)
+  (block1): Sequential(
+    (0): BasicBlock(
+      (conv1): MinkowskiConvolution(in=32, out=32, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm1): MinkowskiBatchNorm(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): MinkowskiConvolution(in=32, out=32, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm2): MinkowskiBatchNorm(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): MinkowskiReLU()
+    )
+    (1): BasicBlock(
+      (conv1): MinkowskiConvolution(in=32, out=32, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm1): MinkowskiBatchNorm(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): MinkowskiConvolution(in=32, out=32, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm2): MinkowskiBatchNorm(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): MinkowskiReLU()
+    )
+  )
+  (conv2p2s2): MinkowskiConvolution(in=32, out=32, kernel_size=[2, 2, 2], stride=[2, 2, 2], dilation=[1, 1, 1])
+  (bn2): MinkowskiBatchNorm(32, eps=1e-05, momentum=0.02, affine=True, track_running_stats=True)
+  (block2): Sequential(
+    (0): BasicBlock(
+      (conv1): MinkowskiConvolution(in=32, out=64, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm1): MinkowskiBatchNorm(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): MinkowskiConvolution(in=64, out=64, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm2): MinkowskiBatchNorm(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): MinkowskiReLU()
+      (downsample): Sequential(
+        (0): MinkowskiConvolution(in=32, out=64, kernel_size=[1, 1, 1], stride=[1, 1, 1], dilation=[1, 1, 1])
+        (1): MinkowskiBatchNorm(64, eps=1e-05, momentum=0.02, affine=True, track_running_stats=True)
+      )
+    )
+    (1): BasicBlock(
+      (conv1): MinkowskiConvolution(in=64, out=64, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm1): MinkowskiBatchNorm(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): MinkowskiConvolution(in=64, out=64, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm2): MinkowskiBatchNorm(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): MinkowskiReLU()
+    )
+    (2): BasicBlock(
+      (conv1): MinkowskiConvolution(in=64, out=64, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm1): MinkowskiBatchNorm(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): MinkowskiConvolution(in=64, out=64, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm2): MinkowskiBatchNorm(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): MinkowskiReLU()
+    )
+  )
+  (conv3p4s2): MinkowskiConvolution(in=64, out=64, kernel_size=[2, 2, 2], stride=[2, 2, 2], dilation=[1, 1, 1])
+  (bn3): MinkowskiBatchNorm(64, eps=1e-05, momentum=0.02, affine=True, track_running_stats=True)
+  (block3): Sequential(
+    (0): BasicBlock(
+      (conv1): MinkowskiConvolution(in=64, out=128, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm1): MinkowskiBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): MinkowskiConvolution(in=128, out=128, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm2): MinkowskiBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): MinkowskiReLU()
+      (downsample): Sequential(
+        (0): MinkowskiConvolution(in=64, out=128, kernel_size=[1, 1, 1], stride=[1, 1, 1], dilation=[1, 1, 1])
+        (1): MinkowskiBatchNorm(128, eps=1e-05, momentum=0.02, affine=True, track_running_stats=True)
+      )
+    )
+    (1): BasicBlock(
+      (conv1): MinkowskiConvolution(in=128, out=128, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm1): MinkowskiBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): MinkowskiConvolution(in=128, out=128, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm2): MinkowskiBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): MinkowskiReLU()
+    )
+    (2): BasicBlock(
+      (conv1): MinkowskiConvolution(in=128, out=128, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm1): MinkowskiBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): MinkowskiConvolution(in=128, out=128, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm2): MinkowskiBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): MinkowskiReLU()
+    )
+    (3): BasicBlock(
+      (conv1): MinkowskiConvolution(in=128, out=128, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm1): MinkowskiBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): MinkowskiConvolution(in=128, out=128, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm2): MinkowskiBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): MinkowskiReLU()
+    )
+  )
+  (conv4p8s2): MinkowskiConvolution(in=128, out=128, kernel_size=[2, 2, 2], stride=[2, 2, 2], dilation=[1, 1, 1])
+  (bn4): MinkowskiBatchNorm(128, eps=1e-05, momentum=0.02, affine=True, track_running_stats=True)
+  (block4): Sequential(
+    (0): BasicBlock(
+      (conv1): MinkowskiConvolution(in=128, out=256, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm1): MinkowskiBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): MinkowskiConvolution(in=256, out=256, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm2): MinkowskiBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): MinkowskiReLU()
+      (downsample): Sequential(
+        (0): MinkowskiConvolution(in=128, out=256, kernel_size=[1, 1, 1], stride=[1, 1, 1], dilation=[1, 1, 1])
+        (1): MinkowskiBatchNorm(256, eps=1e-05, momentum=0.02, affine=True, track_running_stats=True)
+      )
+    )
+    (1): BasicBlock(
+      (conv1): MinkowskiConvolution(in=256, out=256, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm1): MinkowskiBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): MinkowskiConvolution(in=256, out=256, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm2): MinkowskiBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): MinkowskiReLU()
+    )
+    (2): BasicBlock(
+      (conv1): MinkowskiConvolution(in=256, out=256, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm1): MinkowskiBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): MinkowskiConvolution(in=256, out=256, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm2): MinkowskiBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): MinkowskiReLU()
+    )
+    (3): BasicBlock(
+      (conv1): MinkowskiConvolution(in=256, out=256, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm1): MinkowskiBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): MinkowskiConvolution(in=256, out=256, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm2): MinkowskiBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): MinkowskiReLU()
+    )
+    (4): BasicBlock(
+      (conv1): MinkowskiConvolution(in=256, out=256, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm1): MinkowskiBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): MinkowskiConvolution(in=256, out=256, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm2): MinkowskiBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): MinkowskiReLU()
+    )
+    (5): BasicBlock(
+      (conv1): MinkowskiConvolution(in=256, out=256, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm1): MinkowskiBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): MinkowskiConvolution(in=256, out=256, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm2): MinkowskiBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): MinkowskiReLU()
+    )
+  )
+  (convtr4p16s2): MinkowskiConvolutionTranspose(in=256, out=256, kernel_size=[2, 2, 2], stride=[2, 2, 2], dilation=[1, 1, 1])
+  (bntr4): MinkowskiBatchNorm(256, eps=1e-05, momentum=0.02, affine=True, track_running_stats=True)
+  (block5): Sequential(
+    (0): BasicBlock(
+      (conv1): MinkowskiConvolution(in=384, out=256, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm1): MinkowskiBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): MinkowskiConvolution(in=256, out=256, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm2): MinkowskiBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): MinkowskiReLU()
+      (downsample): Sequential(
+        (0): MinkowskiConvolution(in=384, out=256, kernel_size=[1, 1, 1], stride=[1, 1, 1], dilation=[1, 1, 1])
+        (1): MinkowskiBatchNorm(256, eps=1e-05, momentum=0.02, affine=True, track_running_stats=True)
+      )
+    )
+    (1): BasicBlock(
+      (conv1): MinkowskiConvolution(in=256, out=256, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm1): MinkowskiBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): MinkowskiConvolution(in=256, out=256, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm2): MinkowskiBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): MinkowskiReLU()
+    )
+  )
+  (convtr5p8s2): MinkowskiConvolutionTranspose(in=256, out=128, kernel_size=[2, 2, 2], stride=[2, 2, 2], dilation=[1, 1, 1])
+  (bntr5): MinkowskiBatchNorm(128, eps=1e-05, momentum=0.02, affine=True, track_running_stats=True)
+  (block6): Sequential(
+    (0): BasicBlock(
+      (conv1): MinkowskiConvolution(in=192, out=128, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm1): MinkowskiBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): MinkowskiConvolution(in=128, out=128, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm2): MinkowskiBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): MinkowskiReLU()
+      (downsample): Sequential(
+        (0): MinkowskiConvolution(in=192, out=128, kernel_size=[1, 1, 1], stride=[1, 1, 1], dilation=[1, 1, 1])
+        (1): MinkowskiBatchNorm(128, eps=1e-05, momentum=0.02, affine=True, track_running_stats=True)
+      )
+    )
+    (1): BasicBlock(
+      (conv1): MinkowskiConvolution(in=128, out=128, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm1): MinkowskiBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): MinkowskiConvolution(in=128, out=128, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm2): MinkowskiBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): MinkowskiReLU()
+    )
+  )
+  (convtr6p4s2): MinkowskiConvolutionTranspose(in=128, out=96, kernel_size=[2, 2, 2], stride=[2, 2, 2], dilation=[1, 1, 1])
+  (bntr6): MinkowskiBatchNorm(96, eps=1e-05, momentum=0.02, affine=True, track_running_stats=True)
+  (block7): Sequential(
+    (0): BasicBlock(
+      (conv1): MinkowskiConvolution(in=128, out=96, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm1): MinkowskiBatchNorm(96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): MinkowskiConvolution(in=96, out=96, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm2): MinkowskiBatchNorm(96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): MinkowskiReLU()
+      (downsample): Sequential(
+        (0): MinkowskiConvolution(in=128, out=96, kernel_size=[1, 1, 1], stride=[1, 1, 1], dilation=[1, 1, 1])
+        (1): MinkowskiBatchNorm(96, eps=1e-05, momentum=0.02, affine=True, track_running_stats=True)
+      )
+    )
+    (1): BasicBlock(
+      (conv1): MinkowskiConvolution(in=96, out=96, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm1): MinkowskiBatchNorm(96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): MinkowskiConvolution(in=96, out=96, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm2): MinkowskiBatchNorm(96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): MinkowskiReLU()
+    )
+  )
+  (convtr7p2s2): MinkowskiConvolutionTranspose(in=96, out=96, kernel_size=[2, 2, 2], stride=[2, 2, 2], dilation=[1, 1, 1])
+  (bntr7): MinkowskiBatchNorm(96, eps=1e-05, momentum=0.02, affine=True, track_running_stats=True)
+  (block8): Sequential(
+    (0): BasicBlock(
+      (conv1): MinkowskiConvolution(in=128, out=96, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm1): MinkowskiBatchNorm(96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): MinkowskiConvolution(in=96, out=96, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm2): MinkowskiBatchNorm(96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): MinkowskiReLU()
+      (downsample): Sequential(
+        (0): MinkowskiConvolution(in=128, out=96, kernel_size=[1, 1, 1], stride=[1, 1, 1], dilation=[1, 1, 1])
+        (1): MinkowskiBatchNorm(96, eps=1e-05, momentum=0.02, affine=True, track_running_stats=True)
+      )
+    )
+    (1): BasicBlock(
+      (conv1): MinkowskiConvolution(in=96, out=96, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm1): MinkowskiBatchNorm(96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): MinkowskiConvolution(in=96, out=96, kernel_size=[3, 3, 3], stride=[1, 1, 1], dilation=[1, 1, 1])
+      (norm2): MinkowskiBatchNorm(96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): MinkowskiReLU()
+    )
+  )
+  (final): MinkowskiConvolution(in=96, out=20, kernel_size=[1, 1, 1], stride=[1, 1, 1], dilation=[1, 1, 1])
+  (relu): MinkowskiReLU()
+)
+wandb: Currently logged in as: tb5zhh (use `wandb login --relogin` to force relogin)
+wandb: wandb version 0.12.6 is available!  To upgrade, please run:
+wandb:  $ pip install wandb --upgrade
+wandb: Tracking run with wandb version 0.12.4
+wandb: Syncing run lively-snow-260
+wandb:  View project at https://wandb.ai/tb5zhh/3dsp
+wandb:  View run at https://wandb.ai/tb5zhh/3dsp/runs/oulcagob
+wandb: Run data is saved locally in /home/aidrive/tb5zhh/3DScanSeg/wandb/run-20211109_114141-oulcagob
+wandb: Run `wandb offline` to turn off syncing.
+
+[34m[1mwandb[0m: [33mWARNING[0m Calling run.save without any arguments is deprecated.Changes to attributes are automatically persisted.
+[2021-11-09 11:41:44][root	][INFO	] Loading ScannetVoxelization2cmDataset: scannetv2_train.txt
+[2021-11-09 11:41:44][root	][INFO	] Loading ScannetVoxelization2cmtestDataset: scannetv2_val.txt
+[2021-11-09 11:41:44][__main__	][INFO	] Dataloader setup done
+[2021-11-09 11:41:44][__main__	][INFO	] My rank : 0 / 1
+[2021-11-09 11:41:44][__main__	][INFO	] Start training
+[2021-11-09 11:41:55][__main__	][INFO	] TRAIN at global step #1 Epoch #1 Step #2 / 151: loss:3.3711, precision: 0.4872
+[2021-11-09 11:42:03][__main__	][INFO	] TRAIN at global step #2 Epoch #1 Step #4 / 151: loss:2.9935, precision: 1.1018
+[2021-11-09 11:42:08][__main__	][INFO	] TRAIN at global step #3 Epoch #1 Step #6 / 151: loss:2.5538, precision: 13.7297
+[2021-11-09 11:42:16][__main__	][INFO	] TRAIN at global step #4 Epoch #1 Step #8 / 151: loss:2.4060, precision: 12.4890
+[2021-11-09 11:42:24][__main__	][INFO	] TRAIN at global step #5 Epoch #1 Step #10 / 151: loss:2.0780, precision: 17.1081
+[2021-11-09 11:42:32][__main__	][INFO	] TRAIN at global step #6 Epoch #1 Step #12 / 151: loss:2.2694, precision: 14.1812
+[2021-11-09 11:42:39][__main__	][INFO	] TRAIN at global step #7 Epoch #1 Step #14 / 151: loss:2.0471, precision: 18.2669
+[2021-11-09 11:42:45][__main__	][INFO	] TRAIN at global step #8 Epoch #1 Step #16 / 151: loss:2.0646, precision: 17.1948
+[2021-11-09 11:42:52][__main__	][INFO	] TRAIN at global step #9 Epoch #1 Step #18 / 151: loss:1.7639, precision: 19.3621
+[2021-11-09 11:42:59][__main__	][INFO	] TRAIN at global step #10 Epoch #1 Step #20 / 151: loss:2.0154, precision: 17.5705
+[2021-11-09 11:43:05][__main__	][INFO	] TRAIN at global step #11 Epoch #1 Step #22 / 151: loss:1.8932, precision: 16.5732
+[2021-11-09 11:43:12][__main__	][INFO	] TRAIN at global step #12 Epoch #1 Step #24 / 151: loss:1.9265, precision: 16.5325
+[2021-11-09 11:43:18][__main__	][INFO	] TRAIN at global step #13 Epoch #1 Step #26 / 151: loss:1.7378, precision: 20.0113
+[2021-11-09 11:43:24][__main__	][INFO	] TRAIN at global step #14 Epoch #1 Step #28 / 151: loss:1.8375, precision: 17.4480
+[2021-11-09 11:43:32][__main__	][INFO	] TRAIN at global step #15 Epoch #1 Step #30 / 151: loss:1.8605, precision: 15.9001
+[2021-11-09 11:43:38][__main__	][INFO	] TRAIN at global step #16 Epoch #1 Step #32 / 151: loss:1.9010, precision: 16.9657
+[2021-11-09 11:43:45][__main__	][INFO	] TRAIN at global step #17 Epoch #1 Step #34 / 151: loss:2.0523, precision: 15.3991
+[2021-11-09 11:43:52][__main__	][INFO	] TRAIN at global step #18 Epoch #1 Step #36 / 151: loss:1.6838, precision: 19.9601
+[2021-11-09 11:43:58][__main__	][INFO	] TRAIN at global step #19 Epoch #1 Step #38 / 151: loss:1.8970, precision: 15.8963
+[2021-11-09 11:44:05][__main__	][INFO	] TRAIN at global step #20 Epoch #1 Step #40 / 151: loss:1.6866, precision: 19.1857
+[2021-11-09 11:44:13][__main__	][INFO	] TRAIN at global step #21 Epoch #1 Step #42 / 151: loss:1.8130, precision: 18.3287
+[2021-11-09 11:44:20][__main__	][INFO	] TRAIN at global step #22 Epoch #1 Step #44 / 151: loss:1.6040, precision: 20.4459
+[2021-11-09 11:44:26][__main__	][INFO	] TRAIN at global step #23 Epoch #1 Step #46 / 151: loss:1.9974, precision: 14.3976
+[2021-11-09 11:44:34][__main__	][INFO	] TRAIN at global step #24 Epoch #1 Step #48 / 151: loss:1.6995, precision: 17.0471
+[2021-11-09 11:44:42][__main__	][INFO	] TRAIN at global step #25 Epoch #1 Step #50 / 151: loss:1.6906, precision: 19.4321
+[2021-11-09 11:44:47][__main__	][INFO	] TRAIN at global step #26 Epoch #1 Step #52 / 151: loss:1.4099, precision: 23.3068
+[2021-11-09 11:44:54][__main__	][INFO	] TRAIN at global step #27 Epoch #1 Step #54 / 151: loss:1.8834, precision: 15.4239
+[2021-11-09 11:45:01][__main__	][INFO	] TRAIN at global step #28 Epoch #1 Step #56 / 151: loss:1.6933, precision: 18.1541
+[2021-11-09 11:45:08][__main__	][INFO	] TRAIN at global step #29 Epoch #1 Step #58 / 151: loss:1.7144, precision: 18.2020
+[2021-11-09 11:45:14][__main__	][INFO	] TRAIN at global step #30 Epoch #1 Step #60 / 151: loss:1.4074, precision: 22.7021
+[2021-11-09 11:45:20][__main__	][INFO	] TRAIN at global step #31 Epoch #1 Step #62 / 151: loss:1.5413, precision: 20.6162
+[2021-11-09 11:45:27][__main__	][INFO	] TRAIN at global step #32 Epoch #1 Step #64 / 151: loss:1.7031, precision: 17.5842
+[2021-11-09 11:45:33][__main__	][INFO	] TRAIN at global step #33 Epoch #1 Step #66 / 151: loss:1.4369, precision: 22.6041
+[2021-11-09 11:45:39][__main__	][INFO	] TRAIN at global step #34 Epoch #1 Step #68 / 151: loss:1.8083, precision: 16.7350
+[2021-11-09 11:45:45][__main__	][INFO	] TRAIN at global step #35 Epoch #1 Step #70 / 151: loss:1.4935, precision: 22.1387
+[2021-11-09 11:45:53][__main__	][INFO	] TRAIN at global step #36 Epoch #1 Step #72 / 151: loss:1.6663, precision: 17.6830
+[2021-11-09 11:46:00][__main__	][INFO	] TRAIN at global step #37 Epoch #1 Step #74 / 151: loss:1.7278, precision: 18.6423
+[2021-11-09 11:46:06][__main__	][INFO	] TRAIN at global step #38 Epoch #1 Step #76 / 151: loss:1.6275, precision: 19.9083
+[2021-11-09 11:46:13][__main__	][INFO	] TRAIN at global step #39 Epoch #1 Step #78 / 151: loss:1.6892, precision: 17.1821
+[2021-11-09 11:46:20][__main__	][INFO	] TRAIN at global step #40 Epoch #1 Step #80 / 151: loss:1.7600, precision: 18.2613
+[2021-11-09 11:46:26][__main__	][INFO	] TRAIN at global step #41 Epoch #1 Step #82 / 151: loss:1.7064, precision: 17.2426
+[2021-11-09 11:46:32][__main__	][INFO	] TRAIN at global step #42 Epoch #1 Step #84 / 151: loss:1.6609, precision: 18.9493
+[2021-11-09 11:46:39][__main__	][INFO	] TRAIN at global step #43 Epoch #1 Step #86 / 151: loss:1.6100, precision: 21.4126
+[2021-11-09 11:46:47][__main__	][INFO	] TRAIN at global step #44 Epoch #1 Step #88 / 151: loss:1.6410, precision: 17.7199
+[2021-11-09 11:46:53][__main__	][INFO	] TRAIN at global step #45 Epoch #1 Step #90 / 151: loss:1.6481, precision: 17.7129
+[2021-11-09 11:47:01][__main__	][INFO	] TRAIN at global step #46 Epoch #1 Step #92 / 151: loss:1.8136, precision: 14.6593
+[2021-11-09 11:47:10][__main__	][INFO	] TRAIN at global step #47 Epoch #1 Step #94 / 151: loss:1.5372, precision: 20.3826
+[2021-11-09 11:47:16][__main__	][INFO	] TRAIN at global step #48 Epoch #1 Step #96 / 151: loss:1.5727, precision: 20.5046
+[2021-11-09 11:47:23][__main__	][INFO	] TRAIN at global step #49 Epoch #1 Step #98 / 151: loss:1.5126, precision: 20.6185
+[2021-11-09 11:47:31][__main__	][INFO	] TRAIN at global step #50 Epoch #1 Step #100 / 151: loss:1.4663, precision: 19.0776
+[2021-11-09 11:47:37][__main__	][INFO	] TRAIN at global step #51 Epoch #1 Step #102 / 151: loss:1.6224, precision: 18.4910
+[2021-11-09 11:47:43][__main__	][INFO	] TRAIN at global step #52 Epoch #1 Step #104 / 151: loss:1.6789, precision: 18.0665
+[2021-11-09 11:47:49][__main__	][INFO	] TRAIN at global step #53 Epoch #1 Step #106 / 151: loss:1.5645, precision: 19.0028
+[2021-11-09 11:47:55][__main__	][INFO	] TRAIN at global step #54 Epoch #1 Step #108 / 151: loss:1.6328, precision: 17.3958
+[2021-11-09 11:48:01][__main__	][INFO	] TRAIN at global step #55 Epoch #1 Step #110 / 151: loss:1.6998, precision: 20.0899
+[2021-11-09 11:48:07][__main__	][INFO	] TRAIN at global step #56 Epoch #1 Step #112 / 151: loss:2.0734, precision: 13.3084
+[2021-11-09 11:48:15][__main__	][INFO	] TRAIN at global step #57 Epoch #1 Step #114 / 151: loss:1.7261, precision: 18.1959
+[2021-11-09 11:48:20][__main__	][INFO	] TRAIN at global step #58 Epoch #1 Step #116 / 151: loss:1.6595, precision: 21.2424
+[2021-11-09 11:48:27][__main__	][INFO	] TRAIN at global step #59 Epoch #1 Step #118 / 151: loss:1.6316, precision: 18.7211
+[2021-11-09 11:48:33][__main__	][INFO	] TRAIN at global step #60 Epoch #1 Step #120 / 151: loss:1.5222, precision: 19.6850
+[2021-11-09 11:48:41][__main__	][INFO	] TRAIN at global step #61 Epoch #1 Step #122 / 151: loss:1.5969, precision: 17.1245
+[2021-11-09 11:48:47][__main__	][INFO	] TRAIN at global step #62 Epoch #1 Step #124 / 151: loss:1.5840, precision: 18.1682
+[2021-11-09 11:48:53][__main__	][INFO	] TRAIN at global step #63 Epoch #1 Step #126 / 151: loss:1.5461, precision: 20.1198
+[2021-11-09 11:48:59][__main__	][INFO	] TRAIN at global step #64 Epoch #1 Step #128 / 151: loss:1.6611, precision: 20.1104
+[2021-11-09 11:49:05][__main__	][INFO	] TRAIN at global step #65 Epoch #1 Step #130 / 151: loss:1.6267, precision: 18.6078
+[2021-11-09 11:49:11][__main__	][INFO	] TRAIN at global step #66 Epoch #1 Step #132 / 151: loss:1.6237, precision: 18.9376
+[2021-11-09 11:49:16][__main__	][INFO	] TRAIN at global step #67 Epoch #1 Step #134 / 151: loss:1.6168, precision: 18.5792
+[2021-11-09 11:49:23][__main__	][INFO	] TRAIN at global step #68 Epoch #1 Step #136 / 151: loss:1.8799, precision: 15.4526
+[2021-11-09 11:49:29][__main__	][INFO	] TRAIN at global step #69 Epoch #1 Step #138 / 151: loss:1.7901, precision: 15.2125
+[2021-11-09 11:49:35][__main__	][INFO	] TRAIN at global step #70 Epoch #1 Step #140 / 151: loss:1.5140, precision: 22.3398
+[2021-11-09 11:49:42][__main__	][INFO	] TRAIN at global step #71 Epoch #1 Step #142 / 151: loss:1.7573, precision: 16.2640
+[2021-11-09 11:49:51][__main__	][INFO	] TRAIN at global step #72 Epoch #1 Step #144 / 151: loss:1.6793, precision: 16.8811
+[2021-11-09 11:49:57][__main__	][INFO	] TRAIN at global step #73 Epoch #1 Step #146 / 151: loss:1.5942, precision: 19.0221
+[2021-11-09 11:50:02][__main__	][INFO	] TRAIN at global step #74 Epoch #1 Step #148 / 151: loss:1.6113, precision: 18.8777
+[2021-11-09 11:50:08][__main__	][INFO	] TRAIN at global step #75 Epoch #1 Step #150 / 151: loss:1.6283, precision: 18.4622
+Traceback (most recent call last):
+  File "new.py", line 1008, in <module>
+    main()
+  File "new.py", line 90, in main
+    main_worker()
+  File "new.py", line 213, in main_worker
+    train(model, train_dataloader, val_dataloader, config, logger, rank=rank, world_size=world_size)
+  File "new.py", line 855, in train
+    checkpoint(
+  File "new.py", line 44, in checkpoint
+    torch.save(states, filename)
+  File "/home/aidrive/tb5zhh/.conda/envs/tbw_3dscan/lib/python3.8/site-packages/torch/serialization.py", line 369, in save
+    with _open_file_like(f, 'wb') as opened_file:
+  File "/home/aidrive/tb5zhh/.conda/envs/tbw_3dscan/lib/python3.8/site-packages/torch/serialization.py", line 230, in _open_file_like
+    return _open_file(name_or_buffer, mode)
+  File "/home/aidrive/tb5zhh/.conda/envs/tbw_3dscan/lib/python3.8/site-packages/torch/serialization.py", line 211, in __init__
+    super(_open_file, self).__init__(open(name, mode))
+PermissionError: [Errno 13] Permission denied: 'checkpoints/finetune_fit_spec_0.1_100_Res16UNet34C_latest.pth'
+
+wandb: Waiting for W&B process to finish, PID 199288... (failed 1). Press ctrl-c to abort syncing.
+wandb: - 0.05MB of 0.05MB uploaded (0.00MB deduped)wandb: \ 0.05MB of 0.05MB uploaded (0.00MB deduped)wandb: | 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.06MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.04MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: Network error (TransientError), entering retry loop.
+wandb: - 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.05MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: \ 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: | 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: / 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb: - 0.07MB of 0.07MB uploaded (0.00MB deduped)wandb:                                                                                
+wandb: Run history:
+wandb:     global_step ▁▁▁▁▂▂▂▂▂▃▃▃▃▃▃▄▄▄▄▄▅▅▅▅▅▅▆▆▆▆▆▆▇▇▇▇▇███
+wandb:   learning rate ████▇▇▇▇▇▆▆▆▆▆▆▅▅▅▅▅▅▄▄▄▄▄▃▃▃▃▃▃▂▂▂▂▂▁▁▁
+wandb:            loss █▇▅▄▃▃▃▂▃▂▃▂▃▂▃▂▁▁▁▂▂▂▂▂▂▁▁▂▂▃▂▂▂▁▂▂▂▂▂▂
+wandb:      optim_step ▁▁▁▁▂▂▂▂▂▃▃▃▃▃▃▄▄▄▄▄▅▅▅▅▅▅▆▆▆▆▆▆▇▇▇▇▇███
+wandb:       precision ▁▁▅▅▆▆▆▆▆▇▆▇▅▇▆▇▇██▇▇▇▇▆▅▇▇▇▆▅▇▇▆▇▇▇▆▆▇▇
+wandb: 
+wandb: Run summary:
+wandb:     global_step 75
+wandb:   learning rate 0.09977
+wandb:            loss 1.62829
+wandb:      optim_step 75
+wandb:       precision 18.46224
+wandb: 
+wandb: Synced 6 W&B file(s), 0 media file(s), 0 artifact file(s) and 1 other file(s)
+wandb: Synced lively-snow-260: https://wandb.ai/tb5zhh/3dsp/runs/oulcagob
+wandb: Find logs at: ./wandb/run-20211109_114141-oulcagob/logs/debug.log
+wandb: 
